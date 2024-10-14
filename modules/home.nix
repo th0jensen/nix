@@ -120,6 +120,8 @@
 
     programs.git = {
         enable = true;
+        userEmail = "thomas.jensen_@outlook.com";
+        userName = "Thomas Jensen";
     };
 
     # Add more program configurations as needed
