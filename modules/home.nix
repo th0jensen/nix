@@ -82,12 +82,11 @@
             starship init fish | source
 
             # Install Fisher if not already installed
-            if not functions -q fisher
-            curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
-            end
-
             # Install nvm.fish plugin
-            fisher install jorgebucaran/nvm.fish
+            if not functions -q fisher
+                curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
+                fisher install jorgebucaran/nvm.fish
+            end
         '';
 
         plugins = [];
