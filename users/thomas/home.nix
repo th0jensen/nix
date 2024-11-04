@@ -1,7 +1,10 @@
 {pkgs, ...}: {
   imports = [
-    /Users/thomas/nix/home/default.nix
-    /Users/thomas/nix/modules/common.nix
+    ../../home/default.nix
+    ../../modules/aerospace.nix
+    ../../modules/alacritty.nix
+    ../../modules/fish.nix
+    ../../modules/starship.nix
   ];
 
   programs.git = {

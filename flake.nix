@@ -22,7 +22,7 @@
       macbook-pro = nix-darwin.lib.darwinSystem {
         system = "aarch64-darwin";
         modules = [
-          /Users/thomas/nix/hosts/macbook-pro/default.nix
+          ./hosts/macbook-pro/default.nix
 
           nix-homebrew.darwinModules.nix-homebrew {
             nix-homebrew = {
@@ -34,7 +34,7 @@
           home-manager.darwinModules.home-manager {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.thomas = import /Users/thomas/nix/users/thomas/home.nix;
+            home-manager.users.thomas = import ./users/thomas/home.nix;
           }
         ];
       };
