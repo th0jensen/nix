@@ -38,7 +38,7 @@
     };
     openssh.enable = true;
     tailscale.enable = true;
-    docker.enable = true;
+    # docker.enable = true;
   };
 
   # System packages
