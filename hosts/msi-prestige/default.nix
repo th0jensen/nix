@@ -8,7 +8,15 @@
   # Basic system configuration
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  fileSystems = "/";
+
+  fileSystems."/" =
+      { device = "/dev/disk/by-uuid/e55ada70-5227-4dfa-83df-3e358f00206e";
+        fsType = "ext4";
+      };
+
+    swapDevices =
+      [ { device = "/dev/disk/by-uuid/bf78e8de-b1d1-442a-aa9e-9a9ed95b2032"; }
+      ];
 
   # Networking
   networking.hostName = "prestige";
