@@ -34,8 +34,23 @@
           home-manager.darwinModules.home-manager {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.thomas = import ./users/thomas/home.nix;
+            home-manager.users.thomas = import ./users/thomas/darwin.nix;
           }
+        ];
+      };
+    };
+
+    nixosConfigurations = {
+      msi-prestige = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./hosts/msi-prestige/default.nix
+
+            home-manager.nixosModules.home-manager {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.thomas = import ./users/thomas/nixos.nix;
+            }
         ];
       };
     };

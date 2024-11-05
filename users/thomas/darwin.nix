@@ -1,8 +1,7 @@
-{ pkgs, ...}: {
+{ pkgs, ... }: {
   imports = [
-    ../../home/default.nix
+    ../../common/home.nix
 
-    # Specific Configuration
     ../../modules/aerospace.nix
     ../../modules/alacritty.nix
     ../../modules/fish.nix
@@ -13,4 +12,11 @@
     userName = "Thomas Jensen";
     userEmail = "thomas.jensen_@outlook.com";
   };
+
+  # Darwin-specific packages
+  home.packages = with pkgs; [
+    arc-browser
+    iina
+    zoom-us
+  ];
 }

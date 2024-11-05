@@ -109,29 +109,11 @@
     alt-shift-k = ['join-with up', 'mode main']
     alt-shift-l = ['join-with right', 'mode main']
 
-    # Window detection rules
-    [[on-window-detected]]
-    if.app-id = 'com.brave.Browser'
-    run = 'move-node-to-workspace 1'
-
-    [[on-window-detected]]
-    if.app-id = 'org.alacritty'
-    run = 'move-node-to-workspace 2'
-
-    [[on-window-detected]]
-    if.app-id = 'com.tdesktop.Telegram'
-    run = 'move-node-to-workspace 3'
-
-    [[on-window-detected]]
-    if.app-id = 'com.spotify.client'
-    run = 'move-node-to-workspace 4'
-
-    [[on-window-detected]]
-    if.app-id = 'com.obsproject.obs-studio'
-    run = 'move-node-to-workspace 4'
-
-    [[on-window-detected]]
-    if.app-id = 'us.zoom.xos'
-    run = 'move-node-to-workspace 5'
+    # Workspace to monitor force assignment
+    [workspace-to-monitor-force-assignment]
+    1 = 'built-in'
+    2 = 'main'
+    3 = 'main'
+    4 = 'main'
     '';
 }

@@ -41,14 +41,12 @@
             "affinity-photo"
             "chatgpt"
             "docker"
-            "figma"
             "jetbrains-toolbox"
             "jordanbaird-ice"
             "karabiner-elements"
             "logi-options+"
             "minecraft"
             "obs"
-            "ollama"
             "philips-hue-sync"
             "raycast"
             "tailscale"
@@ -62,7 +60,6 @@
         masApps = {
             "Dashlane" = 517914548;
             "Telegram" = 747648890;
-            "Xcode" = 497799835;
         };
     };
 
