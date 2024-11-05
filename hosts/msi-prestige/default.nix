@@ -41,6 +41,14 @@
     docker.enable = true;
   };
 
+  # System packages
+  environment.systemPackages = with pkgs; [
+    vim
+    wget
+    git
+    firefox
+  ];
+
   # Fonts
   fonts.packages = [
     (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
