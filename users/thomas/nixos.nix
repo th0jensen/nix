@@ -12,6 +12,10 @@
     userEmail = "thomas.jensen_@outlook.com";
   };
 
+  home.username = "thomas";
+  home.homeDirectory = "/home/thomas";
+  home.stateVersion = "23.11";
+
   # NixOS-specific home configurations
   home.packages = with pkgs; [
     firefox
