@@ -17,6 +17,8 @@
   time.timeZone = "Europe/Oslo";
   i18n.defaultLocale = "en_US.UTF-8";
 
+  security.sudo.enable = true;
+
   # User configuration
   users.users.thomas = {
     isNormalUser = true;
