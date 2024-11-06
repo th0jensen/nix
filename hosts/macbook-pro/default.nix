@@ -33,13 +33,13 @@
             "mas"
             "nvm"
             "ripgrep-all"
-            "xcode-build-server"
         ];
         casks = [
             "aerospace"
             "affinity-designer"
             "affinity-photo"
             "chatgpt"
+            "cursor"
             "docker"
             "jetbrains-toolbox"
             "jordanbaird-ice"

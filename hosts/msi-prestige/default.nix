@@ -26,17 +26,17 @@
   # X11 and i3 configuration
   services.xserver = {
     enable = true;
-
-    # Disable GNOME
-    displayManager.gdm.enable = false;
-    desktopManager.gnome.enable = false;
-
-    # Configure i3
+    
+    # Configure display manager
     displayManager = {
-      lightdm.enable = true;
+      lightdm = {
+        enable = true;
+        greeters.slick.enable = true;
+      };
       defaultSession = "none+i3";
     };
 
+    # Configure i3
     windowManager.i3 = {
       enable = true;
       package = pkgs.i3;
@@ -51,6 +51,16 @@
     # Configure keyboard
     layout = "us";
     xkbVariant = "";
+
+    # Configure touchpad
+    libinput = {
+      enable = true;
+      touchpad = {
+        tapping = true;
+        naturalScrolling = true;
+        middleEmulation = true;
+      };
+    };
   };
 
   # Audio
@@ -66,9 +76,14 @@
   services = {
     openssh.enable = true;
     tailscale.enable = true;
-
+    acpid.enable = true;
+    thermald.enable = true;
+    blueman.enable = true;
+    printing.enable = true;
+    
     # Enable auto-mounting of USB drives
     udisks2.enable = true;
+    gvfs.enable = true;
   };
 
   # Enable Steam
@@ -84,35 +99,61 @@
     vim
     wget
     git
-
+    curl
+    unzip
+    usbutils
+    
     # i3 related
-    rofi  # alternative to dmenu
-    feh  # for wallpapers
-    picom  # compositor
-    arandr  # screen layout GUI
-    pavucontrol  # audio control
-    networkmanagerapplet  # network manager tray icon
-    xfce.thunar  # file manager
-    xfce.thunar-volman  # volume manager
-    xfce.thunar-archive-plugin  # archive plugin
-
+    rofi
+    feh
+    picom
+    dunst
+    arandr
+    pavucontrol
+    networkmanagerapplet
+    xfce.thunar
+    xfce.thunar-volman
+    xfce.thunar-archive-plugin
+    xfce.xfce4-power-manager
+    
     # System tools
-    lxappearance  # GTK theme configuration
-    xorg.xbacklight  # brightness control
-    acpi  # battery information
-    flameshot  # screenshots
-
+    lxappearance
+    xorg.xbacklight
+    acpi
+    flameshot
+    blueman
+    
     # Media
-    pulseaudio  # audio controls in terminal
-    pamixer  # pulseaudio CLI mixer
-    brightnessctl  # brightness control
+    pulseaudio
+    pamixer
+    brightnessctl
+    
+    # Additional tools
+    polkit_gnome
+    xclip
+    xsel
+
+    # Power management tools
+    powertop
+    tlp
+    acpi
+    brightnessctl
+
+    # System monitoring
+    htop
+    iotop
+    lm_sensors
+
+    # Network tools
+    iwgtk  # GUI for iwd
   ];
 
   # Fonts
   fonts.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
-    font-awesome  # for i3 status icons
+    font-awesome
     ubuntu_font_family
+    dejavu_fonts
   ];
 
   # System version

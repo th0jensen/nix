@@ -2,12 +2,12 @@
 
   # Disks
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/e55ada70-5227-4dfa-83df-3e358f00206e";
+    { device = "/dev/nvme0n1p1";
     fsType = "ext4";
   };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/bf78e8de-b1d1-442a-aa9e-9a9ed95b2032"; } ];
+    [ { device = "/dev/nvme0n1p2"; } ];
 
   # Enable OpenGL
   hardware.opengl = {
@@ -26,6 +26,8 @@
       nvtop       # GPU monitoring
       intel-gpu-tools
       glxinfo
+      iw              # WiFi debugging tools
+      wireless-tools  # WiFi utilities
     ];
 
   # Load nvidia driver
