@@ -9,61 +9,123 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  fileSystems."/" =
-      { device = "/dev/disk/by-uuid/e55ada70-5227-4dfa-83df-3e358f00206e";
-        fsType = "ext4";
-      };
-
-    swapDevices =
-      [ { device = "/dev/disk/by-uuid/bf78e8de-b1d1-442a-aa9e-9a9ed95b2032"; }
-      ];
 
   # Networking
-  networking.hostName = "prestige";
+  networking.hostName = "desktop";
   networking.networkmanager.enable = true;
 
   # Time zone and locale
-  time.timeZone = "Europe/Oslo";
+  time.timeZone = "Europe/Copenhagen";
   i18n.defaultLocale = "en_US.UTF-8";
-
-  programs.fish.enable = true;
 
   # User configuration
   users.users.thomas = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "docker" ];
+    extraGroups = [ "wheel" "networkmanager" "docker" "audio" "video" ];
     shell = pkgs.fish;
   };
 
-  # Enable common services
+  # X11 and i3 configuration
+  services.xserver = {
+    enable = true;
+
+    # Disable GNOME
+    desktopManager.gnome.enable = false;
+
+    # Configure i3
+    displayManager = {
+      lightdm.enable = true;
+      defaultSession = "none+i3";
+    };
+
+    windowManager.i3 = {
+      enable = true;
+      package = pkgs.i3;
+      extraPackages = with pkgs; [
+        dmenu
+        i3status
+        i3lock
+        i3blocks
+      ];
+    };
+
+    # Configure keyboard
+    layout = "us";
+    xkbVariant = "";
+  };
+
+  # Audio
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+  };
+
+  # Other services
   services = {
-    xserver = {
-      enable = true;
-      displayManager.gdm.enable = true;
-      desktopManager.gnome.enable = true;
-    };
-    pipewire = {
-      enable = true;
-      alsa.enable = true;
-      pulse.enable = true;
-    };
     openssh.enable = true;
     tailscale.enable = true;
-    # docker.enable = true;
+    docker.enable = true;
+
+    # Enable auto-mounting of USB drives
+    udisks2.enable = true;
+
+    # Enable notification daemon
+    dunst.enable = true;
+  };
+
+  # Enable Steam
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
   };
 
   # System packages
   environment.systemPackages = with pkgs; [
+    # Basic utilities
     vim
     wget
     git
-    firefox
+
+    # i3 related
+    rofi  # alternative to dmenu
+    feh  # for wallpapers
+    picom  # compositor
+    arandr  # screen layout GUI
+    pavucontrol  # audio control
+    networkmanagerapplet  # network manager tray icon
+    xfce.thunar  # file manager
+    xfce.thunar-volman  # volume manager
+    xfce.thunar-archive-plugin  # archive plugin
+
+    # System tools
+    lxappearance  # GTK theme configuration
+    xorg.xbacklight  # brightness control
+    acpi  # battery information
+    flameshot  # screenshots
+
+    # Media
+    pulseaudio  # audio controls in terminal
+    pamixer  # pulseaudio CLI mixer
+    brightnessctl  # brightness control
   ];
 
   # Fonts
-  fonts.packages = [
-    (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+  fonts.packages = with pkgs; [
+    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    font-awesome  # for i3 status icons
+    ubuntu_font_family
   ];
+
+  # Enable 32-bit support for Steam
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
+  };
 
   # System version
   system.stateVersion = "23.11";

@@ -45,6 +45,7 @@
         system = "x86_64-linux";
         modules = [
           ./hosts/msi-prestige/default.nix
+          ./hosts/msi-prestige/hardware.nix
 
             home-manager.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;
