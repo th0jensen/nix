@@ -67,7 +67,6 @@
   services = {
     openssh.enable = true;
     tailscale.enable = true;
-    docker.enable = true;
 
     # Enable auto-mounting of USB drives
     udisks2.enable = true;
