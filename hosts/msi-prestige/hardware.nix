@@ -55,6 +55,7 @@
       enable = true;
       finegrained = false;
     };
+    open = true;
     prime = {
       offload = {
         enable = true;
