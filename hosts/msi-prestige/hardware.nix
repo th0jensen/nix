@@ -27,7 +27,6 @@
       intel-gpu-tools
       glxinfo
       iw              # WiFi debugging tools
-      wireless-tools  # WiFi utilities
     ];
 
   # Load nvidia driver
