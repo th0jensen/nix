@@ -21,6 +21,7 @@
   users.users.thomas = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "docker" "audio" "video" ];
+    initialPassword = "nix";
   };
 
   # X11 and i3 configuration
