@@ -114,13 +114,6 @@
     ubuntu_font_family
   ];
 
-  # Enable 32-bit support for Steam
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
-  };
-
   # System version
   system.stateVersion = "23.11";
 }
