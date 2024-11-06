@@ -43,7 +43,6 @@
       package = pkgs.i3;
       extraPackages = with pkgs; [
         dmenu
-        dunst
         i3status
         i3lock
         i3blocks
@@ -71,9 +70,6 @@
 
     # Enable auto-mounting of USB drives
     udisks2.enable = true;
-
-    # Enable notification daemon
-    dunst.enable = true;
   };
 
   # Enable Steam
