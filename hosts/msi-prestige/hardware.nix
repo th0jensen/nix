@@ -1,68 +1,100 @@
-{ pkgs, ... }: {
+{ config, pkgs, lib, ... }: {
+  imports = [ ];
+
+  boot = {
+    initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
+    initrd.kernelModules = [ ];
+    kernelModules = [ "kvm-intel" ];
+    extraModulePackages = [ ];
+
+    # For better SSD support
+    kernel.sysctl = {
+      "vm.swappiness" = 10;
+    };
+  };
 
   # Disks
-  fileSystems."/" =
-    { device = "/dev/nvme0n1p1";
+  fileSystems."/" = {
+    device = "/dev/nvme0n1p1";
     fsType = "ext4";
   };
 
-  swapDevices =
-    [ { device = "/dev/nvme0n1p2"; } ];
+  swapDevices = [
+    { device = "/dev/nvme0n1p2"; }
+  ];
+
+  # CPU configuration
+  powerManagement.cpuFreqGovernor = "performance";
+  hardware.cpu.intel.updateMicrocode = true;
 
   # Enable OpenGL
   hardware.opengl = {
     enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
     extraPackages = with pkgs; [
-      intel-media-driver # LIBVA_DRIVER_NAME=iHD
-      vaapiIntel        # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+      intel-media-driver
+      vaapiIntel
       vaapiVdpau
       libvdpau-va-gl
     ];
   };
 
-  # Add hardware related packages
-    environment.systemPackages = with pkgs; [
-      pciutils    # Provides lspci
-      nvtop       # GPU monitoring
-      intel-gpu-tools
-      glxinfo
-      iw              # WiFi debugging tools
-    ];
+  # WiFi and Bluetooth support
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
 
-  # Load nvidia driver
+  networking.wireless = {
+    enable = false;  # Disable wpa_supplicant as we're using NetworkManager
+    iwd.enable = true;  # Enable iwd for better WiFi performance
+  };
+
+  # NVIDIA Configuration for PS63 Modern 8RC (GTX 1050 Max-Q)
   services.xserver.videoDrivers = [ "nvidia" ];
-
   hardware.nvidia = {
-    # Modesetting is required.
     modesetting.enable = true;
-
-    # Nvidia power management. Experimental, and can cause sleep/suspend issues.
-    powerManagement.enable = false;
-
-    # Fine-grained power management. Turns off GPU when not in use.
-    # Experimental and only works on modern Nvidia GPUs (Turing or newer).
-    powerManagement.finegrained = false;
-
-    # Use the NVidia open source kernel module (not nouveau).
-    # Only available from driver 515.43.04+
-    open = true;
-
-    # Enable the Nvidia settings menu,
-    # accessible via `nvidia-settings`.
-    nvidiaSettings = true;
-
-    # Prime configuration for laptops with hybrid graphics
+    powerManagement = {
+      enable = true;
+      finegrained = false;
+    };
     prime = {
       offload = {
         enable = true;
         enableOffloadCmd = true;
       };
-      # Make sure these bus IDs match your hardware
+      # Bus IDs for PS63 Modern 8RC
       intelBusId = "PCI:0:2:0";
       nvidiaBusId = "PCI:1:0:0";
     };
+    nvidiaSettings = true;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
-  # Optional: For better power management
-  services.thermald.enable = true;
+  # Add hardware related packages
+  environment.systemPackages = with pkgs; [
+    pciutils
+    nvtop
+    intel-gpu-tools
+    glxinfo
+    powertop
+    tlp
+    iw
+  ];
+
+  # Power management
+  services = {
+    thermald.enable = true;
+    tlp = {
+      enable = true;
+      settings = {
+        CPU_SCALING_GOVERNOR_ON_AC = "performance";
+        CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+        CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+        CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+        CPU_MIN_PERF_ON_AC = 0;
+        CPU_MAX_PERF_ON_AC = 100;
+        CPU_MIN_PERF_ON_BAT = 0;
+      };
+    };
+  };
 }
