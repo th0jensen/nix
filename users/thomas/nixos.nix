@@ -1,7 +1,6 @@
 { pkgs, ... }: {
   imports = [
     ../../common/home.nix
-    ../../modules/polkit-agent.nix
 
     ../../modules/alacritty.nix
     ../../modules/fish.nix

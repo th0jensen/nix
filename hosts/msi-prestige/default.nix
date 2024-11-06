@@ -26,7 +26,7 @@
   # X11 and i3 configuration
   services.xserver = {
     enable = true;
-    
+
     # Configure display manager
     displayManager = {
       lightdm = {
@@ -80,7 +80,7 @@
     thermald.enable = true;
     blueman.enable = true;
     printing.enable = true;
-    
+
     # Enable auto-mounting of USB drives
     udisks2.enable = true;
     gvfs.enable = true;
@@ -102,7 +102,7 @@
     curl
     unzip
     usbutils
-    
+
     # i3 related
     rofi
     feh
@@ -115,21 +115,20 @@
     xfce.thunar-volman
     xfce.thunar-archive-plugin
     xfce.xfce4-power-manager
-    
+
     # System tools
     lxappearance
     xorg.xbacklight
     acpi
     flameshot
     blueman
-    
+
     # Media
     pulseaudio
     pamixer
     brightnessctl
-    
+
     # Additional tools
-    polkit_gnome
     xclip
     xsel
 
