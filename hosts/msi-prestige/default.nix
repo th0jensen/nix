@@ -9,6 +9,8 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # Enable fish
+  program.fish.enable = true;
 
   # Networking
   networking.hostName = "desktop";
