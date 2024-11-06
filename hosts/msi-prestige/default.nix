@@ -10,11 +10,11 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Networking
-  networking.hostName = "desktop";
+  networking.hostName = "prestige";
   networking.networkmanager.enable = true;
 
   # Time zone and locale
-  time.timeZone = "Europe/Copenhagen";
+  time.timeZone = "Europe/Oslo";
   i18n.defaultLocale = "en_US.UTF-8";
 
   # User configuration
@@ -28,6 +28,7 @@
     enable = true;
 
     # Disable GNOME
+    displayManager.gdm.enable = false;
     desktopManager.gnome.enable = false;
 
     # Configure i3
