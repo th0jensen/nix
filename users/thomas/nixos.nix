@@ -8,6 +8,8 @@
     ../../modules/i3.nix
   ];
 
+  program.fish.enable = true;
+
   programs.git = {
     userName = "Thomas Jensen";
     userEmail = "thomas.jensen_@outlook.com";
