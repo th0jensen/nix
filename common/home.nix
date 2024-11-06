@@ -7,6 +7,7 @@
     dust
     eza
     fastfetch
+    fish
     fzf
     gh
     git
