@@ -21,7 +21,6 @@
   users.users.thomas = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "docker" "audio" "video" ];
-    shell = pkgs.fish;
   };
 
   # X11 and i3 configuration
