@@ -22,6 +22,14 @@
     ];
   };
 
+  # Add hardware related packages
+    environment.systemPackages = with pkgs; [
+      pciutils    # Provides lspci
+      nvtop       # GPU monitoring
+      intel-gpu-tools
+      glxinfo
+    ];
+
   # Load nvidia driver
   services.xserver.videoDrivers = [ "nvidia" ];
 

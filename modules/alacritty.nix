@@ -2,7 +2,7 @@
     programs.alacritty = {
         enable = true;
         settings = {
-            shell = {
+            terminal.shell = {
                 program = "${pkgs.fish}/bin/fish";
             };
             font = {
