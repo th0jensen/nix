@@ -23,6 +23,10 @@
     { device = "/dev/nvme0n1p2"; }
   ];
 
+  boot = {
+    device = "/dev/nvme0n1p3";
+  };
+
   # CPU configuration
   powerManagement.cpuFreqGovernor = "performance";
   hardware.cpu.intel.updateMicrocode = true;
@@ -42,9 +46,10 @@
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
 
-  networking.wireless = {
-    enable = false;  # Disable wpa_supplicant as we're using NetworkManager
-    iwd.enable = true;  # Enable iwd for better WiFi performance
+  networking = {
+    wireless = {
+      enable = true;
+    };
   };
 
   # NVIDIA Configuration for PS63 Modern 8RC (GTX 1050 Max-Q)
@@ -62,8 +67,8 @@
         enableOffloadCmd = true;
       };
       # Bus IDs for PS63 Modern 8RC
-      intelBusId = "PCI:0:2:0";
-      nvidiaBusId = "PCI:1:0:0";
+      intelBusId = "PCI:00:02:0";
+      nvidiaBusId = "PCI:02:00:0";
     };
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
