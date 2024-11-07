@@ -9,7 +9,7 @@
                 normal = {
                     family = "JetBrainsMono Nerd Font";
                 };
-                size = 15;
+                size = 12;
             };
             window = {
                 decorations = "Buttonless";

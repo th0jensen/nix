@@ -8,68 +8,86 @@
 
       # Default layout
       defaultWorkspace = "workspace number 1";
-
-      gaps = {
-        inner = 5;
-        outer = 0;
+      # Use JetBrains Mono Nerd as the default font with increased scaling
+      fonts = {
+        names = [ "JetBrains Mono Nerd Font" ];
+        size = 12.0;
       };
 
-      bars = [{
+      # Default keybindings
+      keybindings = lib.mkOptionDefault {
+        "${config.xsession.windowManager.i3.config.modifier}+Return" = "exec i3-sensible-terminal";
+        "${config.xsession.windowManager.i3.config.modifier}+Shift+q" = "kill";
+        "${config.xsession.windowManager.i3.config.modifier}+d" = "exec --no-startup-id dmenu_run";
+        "${config.xsession.windowManager.i3.config.modifier}+j" = "focus left";
+        "${config.xsession.windowManager.i3.config.modifier}+k" = "focus down";
+        "${config.xsession.windowManager.i3.config.modifier}+l" = "focus up";
+        "${config.xsession.windowManager.i3.config.modifier}+semicolon" = "focus right";
+        "${config.xsession.windowManager.i3.config.modifier}+Left" = "focus left";
+        "${config.xsession.windowManager.i3.config.modifier}+Down" = "focus down";
+        "${config.xsession.windowManager.i3.config.modifier}+Up" = "focus up";
+        "${config.xsession.windowManager.i3.config.modifier}+Right" = "focus right";
+        "${config.xsession.windowManager.i3.config.modifier}+Shift+j" = "move left";
+        "${config.xsession.windowManager.i3.config.modifier}+Shift+k" = "move down";
+        "${config.xsession.windowManager.i3.config.modifier}+Shift+l" = "move up";
+        "${config.xsession.windowManager.i3.config.modifier}+Shift+semicolon" = "move right";
+        "${config.xsession.windowManager.i3.config.modifier}+Shift+Left" = "move left";
+        "${config.xsession.windowManager.i3.config.modifier}+Shift+Down" = "move down";
+        "${config.xsession.windowManager.i3.config.modifier}+Shift+Up" = "move up";
+        "${config.xsession.windowManager.i3.config.modifier}+Shift+Right" = "move right";
+        "${config.xsession.windowManager.i3.config.modifier}+h" = "split h";
+        "${config.xsession.windowManager.i3.config.modifier}+v" = "split v";
+        "${config.xsession.windowManager.i3.config.modifier}+f" = "fullscreen toggle";
+        "${config.xsession.windowManager.i3.config.modifier}+s" = "layout stacking";
+        "${config.xsession.windowManager.i3.config.modifier}+w" = "layout tabbed";
+        "${config.xsession.windowManager.i3.config.modifier}+e" = "layout toggle split";
+        "${config.xsession.windowManager.i3.config.modifier}+Shift+space" = "floating toggle";
+        "${config.xsession.windowManager.i3.config.modifier}+space" = "focus mode_toggle";
+        "${config.xsession.windowManager.i3.config.modifier}+a" = "focus parent";
+        "${config.xsession.windowManager.i3.config.modifier}+Shift+c" = "reload";
+        "${config.xsession.windowManager.i3.config.modifier}+Shift+r" = "restart";
+        "${config.xsession.windowManager.i3.config.modifier}+Shift+e" = "exec i3-nagbar -t warning -m 'Do you want to exit i3?' -B 'Yes, exit i3' 'i3-msg exit'";
+      };
+
+      # Default mode definitions
+      modes = {
+        resize = {
+          "j" = "resize shrink width 10 px or 10 ppt";
+          "k" = "resize grow height 10 px or 10 ppt";
+          "l" = "resize shrink height 10 px or 10 ppt";
+          "semicolon" = "resize grow width 10 px or 10 ppt";
+          "Left" = "resize shrink width 10 px or 10 ppt";
+          "Down" = "resize grow height 10 px or 10 ppt";
+          "Up" = "resize shrink height 10 px or 10 ppt";
+          "Right" = "resize grow width 10 px or 10 ppt";
+          "Return" = "mode default";
+          "Escape" = "mode default";
+          "${config.xsession.windowManager.i3.config.modifier}+r" = "mode default";
+        };
+      };
+
+      bars = [
+      {
         position = "bottom";
         statusCommand = "${pkgs.i3status}/bin/i3status";
-        colors = {
-          background = "#2E3440";
-          statusline = "#FFFFFF";
-          separator = "#666666";
-          focusedWorkspace = {
-            border = "#4C566A";
-            background = "#4C566A";
-            text = "#FFFFFF";
-          };
-          activeWorkspace = {
-            border = "#3B4252";
-            background = "#3B4252";
-            text = "#FFFFFF";
-          };
-          inactiveWorkspace = {
-            border = "#2E3440";
-            background = "#2E3440";
-            text = "#888888";
-          };
-          urgentWorkspace = {
-            border = "#BF616A";
-            background = "#BF616A";
-            text = "#FFFFFF";
-          };
-        };
       }];
 
-      keybindings = lib.mkOptionDefault {
-        "XF86AudioRaiseVolume" = "exec --no-startup-id pamixer -i 5";
-        "XF86AudioLowerVolume" = "exec --no-startup-id pamixer -d 5";
-        "XF86AudioMute" = "exec --no-startup-id pamixer -t";
-        "XF86MonBrightnessUp" = "exec --no-startup-id brightnessctl set +10%";
-        "XF86MonBrightnessDown" = "exec --no-startup-id brightnessctl set 10%-";
-        "${config.xsession.windowManager.i3.config.modifier}+p" = "exec --no-startup-id flameshot gui";
-      };
-
       startup = [
-        {
-          command = "nm-applet";
-          always = false;
-          notification = false;
-        }
-        {
-          command = "picom -b";
-          always = false;
-          notification = false;
-        }
-        {
-          command = "feh --bg-fill ~/.config/wallpaper.jpg";
-          always = true;
-          notification = false;
-        }
-      ];
+      {
+        command = "nm-applet";
+        always = false;
+        notification = false;
+      }
+      {
+        command = "picom -b";
+        always = false;
+        notification = false;
+      }
+      {
+        command = "feh --bg-fill ~/.config/wallpaper.jpg";
+        always = true;
+        notification = false;
+      }];
     };
   };
 }
