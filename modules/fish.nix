@@ -7,6 +7,7 @@
             fish_add_path /opt/homebrew/opt/ruby/bin
             fish_add_path /Users/thomas/.local/bin
             fish_add_path /run/current-system/sw/bin
+            fish_add_path /run/wrappers/bin
             fish_add_path /etc/profiles/per-user/thomas/bin
             fish_add_path /Users/thomas/.deno/bin
 
@@ -27,15 +28,6 @@
             fzf --fish | source
 
             starship init fish | source
-
-            # Set up Python
-            set -Ux PYENV_ROOT $HOME/.pyenv
-            set -U fish_user_paths $PYENV_ROOT/bin $fish_user_paths
-
-            # Load pyenv automatically by appending
-            # the following to ~/.config/fish/config.fish:
-
-            pyenv init - | source
 
             # Install Fisher if not already installed
             # Install nvm.fish plugin
