@@ -60,6 +60,8 @@
     };
   };
 
+  systemd.services.NetworkManager-wait-online.enable = false;
+
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
 
@@ -71,7 +73,7 @@
       enable = true;
       finegrained = false;
     };
-    open = true;
+    open = false;
     prime = {
       offload = {
         enable = true;
