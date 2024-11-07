@@ -22,18 +22,18 @@
     initialPassword = "nix";
   };
 
-  # Configure display manager
-  services.displayManager = {
-    lightdm = {
-      enable = true;
-      greeters.slick.enable = true;
-    };
-    defaultSession = "none+i3";
-  };
-
   # X11 and i3 configuration
   services.xserver = {
     enable = true;
+
+    # Configure display manager
+    displayManager = {
+      lightdm = {
+        enable = true;
+        greeters.slick.enable = true;
+      };
+      defaultSession = "none+i3";
+    };
 
     # Configure i3
     windowManager.i3 = {
