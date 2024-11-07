@@ -1,10 +1,11 @@
 { config, pkgs, lib, ... }: {
-  imports = [ ];
+  hardware.enableAllFirmware = true;
+  hardware.enableRedistributableFirmware = true;
 
   boot = {
     initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
     initrd.kernelModules = [ ];
-    kernelModules = [ "kvm-intel" ];
+    kernelModules = [ "kvm-intel" "iwlwifi" ];
     extraModulePackages = [ ];
 
     # For better SSD support
@@ -33,7 +34,7 @@
   hardware.cpu.intel.updateMicrocode = true;
 
   # Enable OpenGL
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
       intel-media-driver
@@ -44,6 +45,21 @@
   };
 
   # WiFi and Bluetooth support
+  networking = {
+    hostName = "prestige";
+    networkmanager = {
+      enable = true;
+      wifi.backend = "wpa_supplicant";
+    };
+    wireless = {
+      enable = false;
+      userControlled.enable = true;
+      extraConfig = ''
+        ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=wheel
+      '';
+    };
+  };
+
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
 
@@ -78,6 +94,9 @@
     powertop
     tlp
     iw
+    wirelesstools
+    networkmanager
+    networkmanagerapplet
   ];
 
   # Power management

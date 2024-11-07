@@ -9,13 +9,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Networking
-  networking.hostName = "prestige";
-  networking.networkmanager = {
-    enable = true;
-    wifi.backend = "wpa_supplicant";
-  };
-
   # Time zone and locale
   time.timeZone = "Europe/Oslo";
   i18n.defaultLocale = "en_US.UTF-8";
@@ -29,18 +22,18 @@
     initialPassword = "nix";
   };
 
+  # Configure display manager
+  services.displayManager = {
+    lightdm = {
+      enable = true;
+      greeters.slick.enable = true;
+    };
+    defaultSession = "none+i3";
+  };
+
   # X11 and i3 configuration
   services.xserver = {
     enable = true;
-
-    # Configure display manager
-    displayManager = {
-      lightdm = {
-        enable = true;
-        greeters.slick.enable = true;
-      };
-      defaultSession = "none+i3";
-    };
 
     # Configure i3
     windowManager.i3 = {
@@ -55,17 +48,19 @@
     };
 
     # Configure keyboard
-    layout = "us";
-    xkbVariant = "";
+    xkb = {
+      layout = "us";
+      variant = "";
+    };
+  };
 
-    # Configure touchpad
-    libinput = {
-      enable = true;
-      touchpad = {
-        tapping = true;
-        naturalScrolling = true;
-        middleEmulation = true;
-      };
+  # Configure touchpad
+  services.libinput = {
+    enable = true;
+    touchpad = {
+      tapping = true;
+      naturalScrolling = true;
+      middleEmulation = true;
     };
   };
 
