@@ -23,8 +23,9 @@
     { device = "/dev/nvme0n1p2"; }
   ];
 
-  boot = {
+  fileSystem."/boot" = {
     device = "/dev/nvme0n1p3";
+    fsType = "vfat";
   };
 
   # CPU configuration
