@@ -73,7 +73,7 @@
     modesetting.enable = true;
     powerManagement = {
       enable = true;
-      finegrained = false;
+      finegrained = true;
     };
     open = false;
     prime = {
@@ -101,6 +101,7 @@
     wirelesstools
     networkmanager
     networkmanagerapplet
+    logiops
   ];
 
   # Power management

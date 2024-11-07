@@ -16,7 +16,7 @@
 
       # Default keybindings
       keybindings = lib.mkOptionDefault {
-        "${config.xsession.windowManager.i3.config.modifier}+Return" = "exec i3-sensible-terminal";
+        "${config.xsession.windowManager.i3.config.modifier}+Return" = "exec alacritty";
         "${config.xsession.windowManager.i3.config.modifier}+Shift+q" = "kill";
         "${config.xsession.windowManager.i3.config.modifier}+d" = "exec --no-startup-id dmenu_run";
         "${config.xsession.windowManager.i3.config.modifier}+j" = "focus left";
@@ -84,7 +84,7 @@
         notification = false;
       }
       {
-        command = "feh --bg-fill ~/.config/wallpaper.jpg";
+        command = "feh --bg-fill ~/.config/wallpaper.png";
         always = true;
         notification = false;
       }];

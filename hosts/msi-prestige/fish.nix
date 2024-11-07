@@ -2,14 +2,8 @@
     programs.fish = {
         enable = true;
         interactiveShellInit = ''
-            fish_add_path /opt/homebrew/sbin
-            fish_add_path /opt/homebrew/bin
-            fish_add_path /opt/homebrew/opt/ruby/bin
-            fish_add_path $HOME/.local/bin
-            fish_add_path /run/current-system/sw/bin
             fish_add_path /run/wrappers/bin
-            fish_add_path /etc/profiles/per-user/thomas/bin
-            fish_add_path $HOME/.deno/bin
+            fish_add_path /home/thomas/.cargo/bin
 
             set -U fish_greeting ""
 

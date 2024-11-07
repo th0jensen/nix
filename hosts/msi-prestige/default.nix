@@ -1,4 +1,9 @@
 { pkgs, ... }: {
+
+  imports = [
+    ./fish.nix
+  ];
+
   # Enable non-free packages
   nixpkgs.config.allowUnfree = true;
 
@@ -14,17 +19,28 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   security.sudo.enable = true;
+  services.logind.lidSwitchExternalPower = "ignore";
 
   # User configuration
   users.users.thomas = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "docker" "audio" "video" ];
     initialPassword = "nix";
+    shell = pkgs.fish;
   };
 
   # X11 and i3 configuration
   services.xserver = {
     enable = true;
+
+    desktopManager = {
+        xterm.enable = false;
+        xfce = {
+          enable = true;
+          noDesktop = true;
+          enableXfwm = true;
+        };
+    };
 
     # Configure display manager
     displayManager = {
@@ -32,7 +48,7 @@
         enable = true;
         greeters.slick.enable = true;
       };
-      defaultSession = "none+i3";
+      defaultSession = "xfce+i3";
     };
 
     # Configure i3
@@ -104,6 +120,11 @@
     unzip
     usbutils
 
+    # Dev tools
+    deno
+    nixd
+    cc
+
     # i3 related
     rofi
     feh
@@ -137,7 +158,6 @@
     powertop
     tlp
     acpi
-    brightnessctl
 
     # System monitoring
     htop
