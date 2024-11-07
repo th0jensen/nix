@@ -1,10 +1,11 @@
 { config, pkgs, lib, ... }: {
   hardware.enableAllFirmware = true;
   hardware.enableRedistributableFirmware = true;
+  hardware.firmware = [ pkgs.linux-firmware ];
 
   boot = {
     initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
-    initrd.kernelModules = [ ];
+    initrd.kernelModules = [ "iwlwifi" ];
     kernelModules = [ "kvm-intel" "iwlwifi" ];
     extraModulePackages = [ ];
 
