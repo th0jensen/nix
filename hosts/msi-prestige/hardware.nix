@@ -23,7 +23,7 @@
     { device = "/dev/nvme0n1p2"; }
   ];
 
-  fileSystem."/boot" = {
+  fileSystems."/boot" = {
     device = "/dev/nvme0n1p3";
     fsType = "vfat";
   };
