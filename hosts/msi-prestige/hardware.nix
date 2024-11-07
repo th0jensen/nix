@@ -5,7 +5,8 @@
 
   boot = {
     initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
-    initrd.kernelModules = [ "iwlwifi" ];
+    kernelPackages = pkgs.linuxPackages_latest;
+    initrd.kernelModules = [ ];
     kernelModules = [ "kvm-intel" "iwlwifi" ];
     extraModulePackages = [ ];
 
@@ -50,7 +51,7 @@
     hostName = "prestige";
     networkmanager = {
       enable = true;
-      wifi.backend = "wpa_supplicant";
+      wifi.backend = "iwd";
     };
     wireless = {
       enable = false;
