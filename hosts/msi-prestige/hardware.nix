@@ -47,12 +47,6 @@
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
 
-  networking = {
-    wireless = {
-      enable = true;
-    };
-  };
-
   # NVIDIA Configuration for PS63 Modern 8RC (GTX 1050 Max-Q)
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {

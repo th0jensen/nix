@@ -11,7 +11,10 @@
 
   # Networking
   networking.hostName = "prestige";
-  networking.networkmanager.enable = true;
+  networking.networkmanager = {
+    enable = true;
+    wifi.backend = "wpa_supplicant";
+  };
 
   # Time zone and locale
   time.timeZone = "Europe/Oslo";
