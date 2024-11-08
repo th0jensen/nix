@@ -38,7 +38,7 @@
         xfce = {
           enable = true;
           noDesktop = true;
-          enableXfwm = true;
+          enableXfwm = false;
         };
     };
 
@@ -89,6 +89,9 @@
     pulse.enable = true;
   };
 
+  # Docker
+  virtualisation.docker.enable = true;
+
   # Other services
   services = {
     openssh.enable = true;
@@ -102,6 +105,8 @@
     udisks2.enable = true;
     gvfs.enable = true;
   };
+
+  programs.gamemode.enable = true;
 
   # Enable Steam
   programs.steam = {
@@ -119,11 +124,13 @@
     curl
     unzip
     usbutils
+    ripgrep-all
 
     # Dev tools
     deno
     nixd
-    cc
+    gcc
+    cmake
 
     # i3 related
     rofi

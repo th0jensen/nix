@@ -22,5 +22,6 @@
     arc-browser
     iina
     zoom-us
+    bruno
   ];
 }

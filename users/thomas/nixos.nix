@@ -3,7 +3,6 @@
     ../../common/home.nix
 
     ../../modules/alacritty.nix
-    ../../modules/fish.nix
     ../../modules/starship.nix
     ../../modules/i3.nix
   ];
@@ -21,7 +20,7 @@
 
   # i3 specific configurations
   home.packages = with pkgs; [
-    firefox
+    google-chrome
     alacritty
     feh
     zed-editor
@@ -43,17 +42,17 @@
       order += "tztime local"
 
       wireless _first_ {
-          format_up = "W: (%quality at %essid) %ip"
-          format_down = "W: down"
+          format_up = "(%quality at %essid) %ip"
+          format_down = "No Internet Connection"
       }
 
       ethernet _first_ {
-          format_up = "E: %ip (%speed)"
-          format_down = "E: down"
+          format_up = "%ip (%speed)"
+          format_down = ""
       }
 
       battery all {
-          format = "%status %percentage %remaining"
+          format = "%status %percentage"
       }
 
       disk "/" {
@@ -66,7 +65,7 @@
 
       memory {
           format = "MEM %used / %available"
-          threshold_degraded = "1G"
+          threshold_degraded = "100M"
           format_degraded = "MEMORY < %available"
       }
 

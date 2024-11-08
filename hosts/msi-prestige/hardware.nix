@@ -4,7 +4,13 @@
   hardware.firmware = [ pkgs.linux-firmware ];
 
   boot = {
-    initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
+    initrd.availableKernelModules = [
+      "xhci_pci"
+      "nvme"
+      "usb_storage"
+      "sd_mod"
+      "rtsx_pci_sdmmc"
+    ];
     kernelPackages = pkgs.linuxPackages_latest;
     initrd.kernelModules = [ ];
     kernelModules = [ "kvm-intel" "iwlwifi" ];
@@ -38,6 +44,8 @@
   # Enable OpenGL
   hardware.graphics = {
     enable = true;
+    enable32Bit = true;
+
     extraPackages = with pkgs; [
       intel-media-driver
       vaapiIntel
@@ -48,11 +56,14 @@
 
   # WiFi and Bluetooth support
   networking = {
+
     hostName = "prestige";
+
     networkmanager = {
       enable = true;
       wifi.backend = "iwd";
     };
+
     wireless = {
       enable = false;
       userControlled.enable = true;
@@ -69,25 +80,33 @@
 
   # NVIDIA Configuration for PS63 Modern 8RC (GTX 1050 Max-Q)
   services.xserver.videoDrivers = [ "nvidia" ];
+
   hardware.nvidia = {
     modesetting.enable = true;
+
     powerManagement = {
       enable = true;
       finegrained = true;
     };
+
     open = false;
+
     prime = {
       offload = {
         enable = true;
         enableOffloadCmd = true;
       };
-      # Bus IDs for PS63 Modern 8RC
-      intelBusId = "PCI:00:02:0";
-      nvidiaBusId = "PCI:02:00:0";
+
+      intelBusId = "PCI:0:2:0";
+      nvidiaBusId = "PCI:2:0:0";
     };
+
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
+
+  # Enable virtualisation on Nvidia GPU
+  hardware.nvidia-container-toolkit.enable = true;
 
   # Add hardware related packages
   environment.systemPackages = with pkgs; [
@@ -102,13 +121,20 @@
     networkmanager
     networkmanagerapplet
     logiops
+    vulkan-tools
+    vulkan-loader
+    vulkan-validation-layers
+    libva
+    libva-utils
   ];
 
   # Power management
   services = {
     thermald.enable = true;
+
     tlp = {
       enable = true;
+
       settings = {
         CPU_SCALING_GOVERNOR_ON_AC = "performance";
         CPU_SCALING_GOVERNOR_ON_BAT = "powersave";

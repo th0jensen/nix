@@ -6,6 +6,7 @@
             fish_add_path /home/thomas/.cargo/bin
 
             set -U fish_greeting ""
+            set -gx TERM screen-256color-bce
 
             # Aliases
             alias gitignore='gitignore_edit'
@@ -30,7 +31,5 @@
                 fisher install jorgebucaran/nvm.fish
             end
         '';
-
-        plugins = [];
     };
 }

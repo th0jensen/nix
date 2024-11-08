@@ -1,7 +1,6 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
     bat
-    bruno
     btop
     discord
     dust

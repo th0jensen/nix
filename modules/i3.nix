@@ -46,7 +46,7 @@
         "${config.xsession.windowManager.i3.config.modifier}+a" = "focus parent";
         "${config.xsession.windowManager.i3.config.modifier}+Shift+c" = "reload";
         "${config.xsession.windowManager.i3.config.modifier}+Shift+r" = "restart";
-        "${config.xsession.windowManager.i3.config.modifier}+Shift+e" = "exec i3-nagbar -t warning -m 'Do you want to exit i3?' -B 'Yes, exit i3' 'i3-msg exit'";
+        "${config.xsession.windowManager.i3.config.modifier}+Shift+e" = "exec i3-nagbar -t warning -m 'Do you want to exit i3?' -B 'Yes, exit i3' 'xfce4-session-logout exit'";
       };
 
       # Default mode definitions
