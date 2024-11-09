@@ -5,6 +5,7 @@
     ../../modules/alacritty.nix
     ../../modules/starship.nix
     ../../modules/i3.nix
+    ../../modules/polybar.nix
   ];
 
   programs.fish.enable = true;
@@ -24,6 +25,7 @@
     alacritty
     feh
     zed-editor
+    polybar
   ];
 
     # Create default i3status configuration

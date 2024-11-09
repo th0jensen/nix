@@ -4,7 +4,7 @@
     config = {
       modifier = "Mod4";
       terminal = "alacritty";
-      menu = "dmenu_run";
+      menu = "rofi";
 
       # Default layout
       defaultWorkspace = "workspace number 1";
@@ -46,7 +46,7 @@
         "${config.xsession.windowManager.i3.config.modifier}+a" = "focus parent";
         "${config.xsession.windowManager.i3.config.modifier}+Shift+c" = "reload";
         "${config.xsession.windowManager.i3.config.modifier}+Shift+r" = "restart";
-        "${config.xsession.windowManager.i3.config.modifier}+Shift+e" = "exec i3-nagbar -t warning -m 'Do you want to exit i3?' -B 'Yes, exit i3' 'xfce4-session-logout exit'";
+        "${config.xsession.windowManager.i3.config.modifier}+Shift+e" = "exec xfce4-session-logout";
       };
 
       # Default mode definitions
@@ -69,7 +69,7 @@
       bars = [
       {
         position = "bottom";
-        statusCommand = "${pkgs.i3status}/bin/i3status";
+        statusCommand = "${pkgs.polybar}/bin/polybar";
       }];
 
       startup = [

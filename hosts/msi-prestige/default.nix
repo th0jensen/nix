@@ -57,7 +57,6 @@
       package = pkgs.i3;
       extraPackages = with pkgs; [
         dmenu
-        i3status
         i3lock
         i3blocks
       ];
@@ -78,6 +77,20 @@
       naturalScrolling = true;
       middleEmulation = true;
     };
+  };
+
+  # Mouse Props
+  services.xserver.libinput = {
+    enable = true;
+    mouse = {
+      accelProfile = "flat";
+      accelSpeed = "0";
+     };
+  };
+
+  # No pointer trails
+  environment.sessionVariables = {
+    XCURSOR_SIZE = "24";
   };
 
   # Audio

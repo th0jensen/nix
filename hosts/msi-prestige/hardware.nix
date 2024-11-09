@@ -102,7 +102,7 @@
     };
 
     nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    package = config.boot.kernelPackages.nvidiaPackages.latest;
   };
 
   # Enable virtualisation on Nvidia GPU
@@ -120,7 +120,6 @@
     wirelesstools
     networkmanager
     networkmanagerapplet
-    logiops
     vulkan-tools
     vulkan-loader
     vulkan-validation-layers
