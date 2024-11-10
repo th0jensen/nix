@@ -25,7 +25,6 @@
     alacritty
     feh
     zed-editor
-    sunshine
     # polybar
   ];
 

@@ -24,7 +24,7 @@
   # User configuration
   users.users.thomas = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "docker" "audio" "video" ];
+    extraGroups = [ "wheel" "networkmanager" "docker" "audio" "video" "input" ];
     initialPassword = "nix";
     shell = pkgs.fish;
   };
@@ -36,6 +36,17 @@
         capabilities = "cap_sys_admin+p";
         source = "${pkgs.sunshine}/bin/sunshine";
     };
+
+    services.avahi.publish.enable = true;
+    services.avahi.publish.userServices = true;
+
+    systemd.user.services = {
+          sunshine = {
+            description = "Sunshine is a Game stream host for Moonlight.";
+            script = "${pkgs.sunshine}/bin/sunshine";
+            requiredBy = [ "graphical-session.target" ];
+          };
+        };
 
   # X11 and i3 configuration
   services.xserver = {
@@ -146,6 +157,8 @@
     unzip
     usbutils
     ripgrep-all
+    avahi
+    sunshine
 
     # Dev tools
     deno
