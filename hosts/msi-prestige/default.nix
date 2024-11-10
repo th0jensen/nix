@@ -24,7 +24,7 @@
   # User configuration
   users.users.thomas = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "docker" "audio" "video" "input" "render" ];
+    extraGroups = [ "wheel" "networkmanager" "docker" "audio" "video" "input" "render" "uinput" ];
     initialPassword = "nix";
     shell = pkgs.fish;
   };
@@ -40,15 +40,19 @@
   # Create systemd service for Sunshine
   systemd.services.sunshine = {
     description = "Sunshine streaming service";
-    wantedBy = [ "multi-user.target" "display-manager.service" ];
-    after = [ "network.target" "display-manager.service" ];
+    wantedBy = [ "graphical-session.target" ];
+    after = [ "network.target" "graphical-session.target" ];
     
     serviceConfig = {
       Type = "simple";
       ExecStart = "${pkgs.sunshine}/bin/sunshine";
       Restart = "always";
       User = "thomas";
-      Environment = "DISPLAY=:0";
+      Environment = [
+        "DISPLAY=:0"
+        "XAUTHORITY=/home/thomas/.Xauthority"
+        "XDG_RUNTIME_DIR=/run/user/1000"
+      ];
       RuntimeDirectory = "sunshine";
       RuntimeDirectoryMode = "0755";
     };
@@ -66,19 +70,12 @@
     back_button_timeout = 100
     key_repeat_delay = 100
     gamepad = true
-    virtual_gamepad = false
+    virtual_gamepad = true
+    virtual_sink = false
   '';
 
   services.avahi.publish.enable = true;
   services.avahi.publish.userServices = true;
-
-  systemd.user.services = {
-    sunshine = {
-      description = "Sunshine is a Game stream host for Moonlight.";
-      script = "${pkgs.sunshine}/bin/sunshine";
-      requiredBy = [ "graphical-session.target" ];
-    };
-  };
 
   # X11 and i3 configuration
   services.xserver = {
@@ -251,4 +248,10 @@
 
   # System version
   system.stateVersion = "23.11";
+
+  # Enable uinput
+  boot.kernelModules = [ "uinput" ];
+  services.udev.extraRules = ''
+    KERNEL=="uinput", SUBSYSTEM=="misc", TAG+="uaccess", GROUP="input", MODE="0660"
+  '';
 }
