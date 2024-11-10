@@ -24,7 +24,7 @@
   # User configuration
   users.users.thomas = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "docker" "audio" "video" "input" ];
+    extraGroups = [ "wheel" "networkmanager" "docker" "audio" "video" "input" "render" ];
     initialPassword = "nix";
     shell = pkgs.fish;
   };
@@ -33,21 +33,24 @@
   security.wrappers.sunshine = {
     owner = "root";
     group = "root";
-    capabilities = "cap_sys_admin+p";
+    capabilities = "cap_sys_admin+ep";
     source = "${pkgs.sunshine}/bin/sunshine";
   };
 
   # Create systemd service for Sunshine
   systemd.services.sunshine = {
     description = "Sunshine streaming service";
-    wantedBy = [ "multi-user.target" ];
-    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" "display-manager.service" ];
+    after = [ "network.target" "display-manager.service" ];
     
     serviceConfig = {
       Type = "simple";
       ExecStart = "${pkgs.sunshine}/bin/sunshine";
       Restart = "always";
       User = "thomas";
+      Environment = "DISPLAY=:0";
+      RuntimeDirectory = "sunshine";
+      RuntimeDirectoryMode = "0755";
     };
   };
 
