@@ -30,12 +30,32 @@
   };
 
   # Enable Sunshine
-  security.wrappers.sunshine = {
-        owner = "root";
-        group = "root";
-        capabilities = "cap_sys_admin+p";
-        source = "${pkgs.sunshine}/bin/sunshine";
+  services.sunshine = {
+    enable = true;
+    # Only listen on Tailscale interface
+    openFirewall = false;
+    config = {
+      # Basic settings
+      min_log_level = "Info";
+      # Only allow connections from Tailscale network
+      origin_web_ui_allowed = ["100.0.0.0/8"];
+      # Prevent external connections
+      origin_pin_allowed = ["100.0.0.0/8"];
+      # Use hardware encoding
+      encoder = "nvenc";
+      # Adaptive bitrate settings
+      min_bitrate = 10;
+      max_bitrate = 50;
+      # Better image quality
+      hevc_mode = "0";
+      # Reduce input latency
+      back_button_timeout = 100;
+      key_repeat_delay = 100;
+      # Gamepad settings
+      gamepad = true;
+      virtual_gamepad = false;
     };
+  };
 
     services.avahi.publish.enable = true;
     services.avahi.publish.userServices = true;
