@@ -29,6 +29,14 @@
     shell = pkgs.fish;
   };
 
+  # Enable Sunshine
+  security.wrappers.sunshine = {
+        owner = "root";
+        group = "root";
+        capabilities = "cap_sys_admin+p";
+        source = "${pkgs.sunshine}/bin/sunshine";
+    };
+
   # X11 and i3 configuration
   services.xserver = {
     enable = true;

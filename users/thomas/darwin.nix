@@ -23,5 +23,6 @@
     iina
     zoom-us
     bruno
+    moonlight
   ];
 }

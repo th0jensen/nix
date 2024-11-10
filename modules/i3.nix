@@ -66,12 +66,6 @@
         };
       };
 
-      bars = [
-      {
-        position = "bottom";
-        statusCommand = "${pkgs.polybar}/bin/polybar";
-      }];
-
       startup = [
       {
         command = "nm-applet";
