@@ -30,7 +30,7 @@
   };
 
   # Enable Sunshine
-  services.sunshine = {
+  services.wrappers.sunshine = {
     enable = true;
     # Only listen on Tailscale interface
     openFirewall = false;
