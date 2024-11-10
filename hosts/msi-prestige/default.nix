@@ -30,43 +30,55 @@
   };
 
   # Enable Sunshine
-  services.wrappers.sunshine = {
-    enable = true;
-    # Only listen on Tailscale interface
-    openFirewall = false;
-    config = {
-      # Basic settings
-      min_log_level = "Info";
-      # Only allow connections from Tailscale network
-      origin_web_ui_allowed = ["100.0.0.0/8"];
-      # Prevent external connections
-      origin_pin_allowed = ["100.0.0.0/8"];
-      # Use hardware encoding
-      encoder = "nvenc";
-      # Adaptive bitrate settings
-      min_bitrate = 10;
-      max_bitrate = 50;
-      # Better image quality
-      hevc_mode = "0";
-      # Reduce input latency
-      back_button_timeout = 100;
-      key_repeat_delay = 100;
-      # Gamepad settings
-      gamepad = true;
-      virtual_gamepad = false;
+  environment.systemPackages = [ pkgs.sunshine ];
+
+  # Configure Sunshine service and capabilities
+  security.wrappers.sunshine = {
+    owner = "root";
+    group = "root";
+    capabilities = "cap_sys_admin+p";
+    source = "${pkgs.sunshine}/bin/sunshine";
+  };
+
+  # Create systemd service for Sunshine
+  systemd.services.sunshine = {
+    description = "Sunshine streaming service";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "network.target" ];
+    
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = "${pkgs.sunshine}/bin/sunshine";
+      Restart = "always";
+      User = "thomas";
     };
   };
 
-    services.avahi.publish.enable = true;
-    services.avahi.publish.userServices = true;
+  # Create Sunshine config directory and configuration
+  environment.etc."sunshine/sunshine.conf".text = ''
+    min_log_level = "Info"
+    origin_web_ui_allowed = ["100.0.0.0/8"]
+    origin_pin_allowed = ["100.0.0.0/8"]
+    encoder = "nvenc"
+    min_bitrate = 10
+    max_bitrate = 50
+    hevc_mode = "0"
+    back_button_timeout = 100
+    key_repeat_delay = 100
+    gamepad = true
+    virtual_gamepad = false
+  '';
 
-    systemd.user.services = {
-          sunshine = {
-            description = "Sunshine is a Game stream host for Moonlight.";
-            script = "${pkgs.sunshine}/bin/sunshine";
-            requiredBy = [ "graphical-session.target" ];
-          };
-        };
+  services.avahi.publish.enable = true;
+  services.avahi.publish.userServices = true;
+
+  systemd.user.services = {
+    sunshine = {
+      description = "Sunshine is a Game stream host for Moonlight.";
+      script = "${pkgs.sunshine}/bin/sunshine";
+      requiredBy = [ "graphical-session.target" ];
+    };
+  };
 
   # X11 and i3 configuration
   services.xserver = {
