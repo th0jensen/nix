@@ -23,6 +23,6 @@
     iina
     zoom-us
     bruno
-    moonlight
+    moonshine
   ];
 }
