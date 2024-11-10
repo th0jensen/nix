@@ -29,9 +29,6 @@
     shell = pkgs.fish;
   };
 
-  # Enable Sunshine
-  environment.systemPackages = [ pkgs.sunshine ];
-
   # Configure Sunshine service and capabilities
   security.wrappers.sunshine = {
     owner = "root";
