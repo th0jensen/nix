@@ -20,6 +20,11 @@
     kernel.sysctl = {
       "vm.swappiness" = 10;
     };
+
+    kernelParams = [
+      "intel_pstate=active"
+      "processor.ignore_ppc=1"
+    ];
   };
 
   # Disks
@@ -125,12 +130,13 @@
     vulkan-validation-layers
     libva
     libva-utils
+    cpupower
+    s-tui
+    stress-ng
   ];
 
   # Power management
   services = {
-    thermald.enable = true;
-
     tlp = {
       enable = true;
 
@@ -142,7 +148,42 @@
         CPU_MIN_PERF_ON_AC = 0;
         CPU_MAX_PERF_ON_AC = 100;
         CPU_MIN_PERF_ON_BAT = 0;
+        CPU_MAX_PERF_ON_BAT = 60;
+        CPU_BOOST_ON_AC = 1;
+        CPU_BOOST_ON_BAT = 0;
+        CPU_SCALING_MIN_FREQ_ON_AC = 800000;
+        CPU_SCALING_MAX_FREQ_ON_AC = 4600000;
+        CPU_SCALING_MIN_FREQ_ON_BAT = 800000;
+        CPU_SCALING_MAX_FREQ_ON_BAT = 2000000;
       };
     };
+  };
+
+  thermald = {
+    enable = true;
+    configFile = pkgs.writeText "thermal-conf.xml" ''
+      <?xml version="1.0"?>
+      <ThermalConfiguration>
+        <ThermalZones>
+          <ThermalZone>
+            <Type>cpu</Type>
+            <TripPoints>
+              <TripPoint>
+                <SensorType>x86_pkg_temp</SensorType>
+                <Temperature>75000</Temperature>
+                <type>passive</type>
+                <ControlType>PARALLEL</ControlType>
+                <CoolingDevice>
+                  <index>1</index>
+                  <type>rapl_controller</type>
+                  <influence>100</influence>
+                  <SamplingPeriod>5</SamplingPeriod>
+                </CoolingDevice>
+              </TripPoint>
+            </TripPoints>
+          </ThermalZone>
+        </ThermalZones>
+      </ThermalConfiguration>
+    '';
   };
 }
