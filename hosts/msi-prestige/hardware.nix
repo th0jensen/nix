@@ -137,6 +137,8 @@
 
   # Power management
   services = {
+    thermald.enable = true;
+
     tlp = {
       enable = true;
 
