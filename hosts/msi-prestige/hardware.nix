@@ -137,7 +137,33 @@
 
   # Power management
   services = {
-    thermald.enable = true;
+    thermald = {
+      enable = true;
+      configFile = pkgs.writeText "thermal-conf.xml" ''
+        <?xml version="1.0"?>
+        <ThermalConfiguration>
+          <ThermalZones>
+            <ThermalZone>
+              <Type>cpu</Type>
+              <TripPoints>
+                <TripPoint>
+                  <SensorType>x86_pkg_temp</SensorType>
+                  <Temperature>75000</Temperature>
+                  <type>passive</type>
+                  <ControlType>PARALLEL</ControlType>
+                  <CoolingDevice>
+                    <index>1</index>
+                    <type>rapl_controller</type>
+                    <influence>100</influence>
+                    <SamplingPeriod>5</SamplingPeriod>
+                  </CoolingDevice>
+                </TripPoint>
+              </TripPoints>
+            </ThermalZone>
+          </ThermalZones>
+        </ThermalConfiguration>
+      '';
+    };
 
     tlp = {
       enable = true;
@@ -159,33 +185,5 @@
         CPU_SCALING_MAX_FREQ_ON_BAT = 2000000;
       };
     };
-  };
-
-  thermald = {
-    enable = true;
-    configFile = pkgs.writeText "thermal-conf.xml" ''
-      <?xml version="1.0"?>
-      <ThermalConfiguration>
-        <ThermalZones>
-          <ThermalZone>
-            <Type>cpu</Type>
-            <TripPoints>
-              <TripPoint>
-                <SensorType>x86_pkg_temp</SensorType>
-                <Temperature>75000</Temperature>
-                <type>passive</type>
-                <ControlType>PARALLEL</ControlType>
-                <CoolingDevice>
-                  <index>1</index>
-                  <type>rapl_controller</type>
-                  <influence>100</influence>
-                  <SamplingPeriod>5</SamplingPeriod>
-                </CoolingDevice>
-              </TripPoint>
-            </TripPoints>
-          </ThermalZone>
-        </ThermalZones>
-      </ThermalConfiguration>
-    '';
   };
 }
