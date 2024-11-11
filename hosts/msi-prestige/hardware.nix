@@ -130,9 +130,6 @@
     vulkan-validation-layers
     libva
     libva-utils
-    cpupower
-    s-tui
-    stress-ng
   ];
 
   # Power management
