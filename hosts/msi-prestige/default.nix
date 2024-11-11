@@ -194,6 +194,10 @@
     nixd
     gcc
     cmake
+    lua
+    luajit
+    lua-language-server
+    luac
 
     # i3 related
     rofi
