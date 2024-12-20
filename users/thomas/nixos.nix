@@ -26,6 +26,8 @@
     feh
     zed-editor
     # polybar
+    wineWowPackages.stable
+    winetricks
   ];
 
   services.polybar = {
