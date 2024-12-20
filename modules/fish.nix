@@ -36,7 +36,5 @@
                 fisher install jorgebucaran/nvm.fish
             end
         '';
-
-        plugins = [];
     };
 }

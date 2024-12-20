@@ -32,17 +32,13 @@
 
     # Main mode bindings
     [mode.main.binding]
-    # Launch applications
-    cmd-shift-enter = 'exec-and-forget open -na alacritty'
-    alt-shift-b = 'exec-and-forget open -a "Brave Browser"'
-    alt-shift-t = 'exec-and-forget open -a "Telegram"'
-    alt-shift-f = 'exec-and-forget open -a Finder'
+    cmd-shift-enter = 'exec-and-forget open -na /${pkgs.alacritty}/Applications/Alacritty.app'
 
     # Window management
-    alt-q = "close"
     alt-slash = 'layout tiles horizontal vertical'
     alt-comma = 'layout accordion horizontal vertical'
     alt-m = 'fullscreen'
+    alt-shift-m = 'layout floating tiling'
 
     # Focus movement
     alt-h = 'focus left'
@@ -96,9 +92,6 @@
 
     # Reset layout
     r = ['flatten-workspace-tree', 'mode main']
-
-    # Toggle floating/tiling layout
-    f = ['layout floating tiling', 'mode main']
 
     # Close all windows but current
     backspace = ['close-all-windows-but-current', 'mode main']

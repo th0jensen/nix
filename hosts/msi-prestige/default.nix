@@ -42,7 +42,7 @@
     description = "Sunshine streaming service";
     wantedBy = [ "graphical-session.target" ];
     after = [ "network.target" "graphical-session.target" ];
-    
+
     serviceConfig = {
       Type = "simple";
       ExecStart = "${pkgs.sunshine}/bin/sunshine";

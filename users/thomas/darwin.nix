@@ -4,7 +4,6 @@
 
     ../../modules/aerospace.nix
     ../../modules/alacritty.nix
-    ../../modules/fish.nix
     ../../modules/starship.nix
   ];
 
@@ -20,9 +19,8 @@
   # Darwin-specific packages
   home.packages = with pkgs; [
     arc-browser
+    caddy
     iina
     zoom-us
-    bruno
-    moonlight-qt
   ];
 }

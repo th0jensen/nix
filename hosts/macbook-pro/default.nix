@@ -1,4 +1,8 @@
 { pkgs, ... }: {
+    imports = [
+        ../../modules/fish.nix
+    ];
+
     # Enable paid apps
     nixpkgs.config.allowUnfree = true;
 
@@ -23,16 +27,22 @@
 
     # Gotta get that niceee font :=>)
     fonts.packages = [
-        (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+        pkgs.nerd-fonts.jetbrains-mono
     ];
 
     homebrew = {
         enable = true;
+        onActivation = {
+            autoUpdate = true;
+            cleanup = "uninstall";
+            upgrade = true;
+        };
         brews = [
             "fisher"
             "mas"
             "nvm"
             "ripgrep-all"
+            "xcode-build-server"
         ];
         casks = [
             "aerospace"
@@ -41,18 +51,18 @@
             "chatgpt"
             "cursor"
             "docker"
+            "insomnia"
             "jetbrains-toolbox"
             "jordanbaird-ice"
             "karabiner-elements"
             "logi-options+"
             "minecraft"
-            "obs"
             "philips-hue-sync"
             "raycast"
             "tailscale"
             "transmission"
-            "via"
-            "zed"
+            "xcodes"
+            "zed@preview"
         ];
         taps = [
             "nikitabobko/tap"
@@ -78,7 +88,9 @@
             show-recents = false;
             persistent-apps = [
                 "${pkgs.arc-browser}/Applications/Arc.app"
-                "/Applications/Zed.app"
+                "/Applications/Zed Preview.app"
+                "/Applications/Canary Mail.app"
+                "/System/Applications/Messages.app"
             ];
             persistent-others = [
                 "/Users/thomas/Downloads"
@@ -104,6 +116,7 @@
         NSGlobalDomain = {
             AppleICUForce24HourTime = false;
             AppleInterfaceStyle = "Dark";
+            ApplePressAndHoldEnabled = false;
             KeyRepeat = 2;
         };
         menuExtraClock = {
