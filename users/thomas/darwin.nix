@@ -3,7 +3,6 @@
     ../../common/home.nix
 
     ../../modules/aerospace.nix
-    ../../modules/games.nix
     ../../modules/ghostty.nix
     ../../modules/helix.nix
     ../../modules/starship.nix
