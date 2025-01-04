@@ -6,10 +6,6 @@
             command_timeout = 1000;
             scan_timeout = 1000;
 
-            line_break = {
-                disabled = true;
-            };
-
             character = {
                 success_symbol = "[➜](bold green)";
                 error_symbol = "[✗](bold red)";

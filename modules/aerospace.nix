@@ -17,6 +17,14 @@
     # Automatically unhide macOS hidden apps
     automatically-unhide-macos-hidden-apps = true
 
+    # Ghostty
+    [[on-window-detected]]
+    if.app-id="com.mitchellh.ghostty"
+    run= [
+      "layout tiling",
+    ]
+
+
     # Key mapping preset
     [key-mapping]
     preset = 'qwerty'
@@ -32,7 +40,7 @@
 
     # Main mode bindings
     [mode.main.binding]
-    cmd-shift-enter = 'exec-and-forget open -na /${pkgs.alacritty}/Applications/Alacritty.app'
+    cmd-shift-enter = 'exec-and-forget open -na /Applications/Ghostty.app'
 
     # Window management
     alt-slash = 'layout tiles horizontal vertical'

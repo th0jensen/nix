@@ -12,7 +12,7 @@
     gh
     git
     gitu
-    neovim
+    helix
     nixd
     rustup
     starship
