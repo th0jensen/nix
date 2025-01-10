@@ -87,8 +87,11 @@
           enable = true;
           noDesktop = true;
           enableXfwm = false;
+          thunarPlugins = with pkgs.xfce; [
+            thunar-archive-plugin
+            thunar-volman
+          ];
         };
-    };
 
     # Configure display manager
     displayManager = {
@@ -291,6 +294,56 @@
     ubuntu_font_family
     dejavu_fonts
   ];
+
+  # Add custom packages repository for Chicago95
+    nixpkgs.overlays = [
+      (self: super: {
+        chicago95-theme = super.fetchFromGitHub {
+          owner = "grassmunk";
+          repo = "Chicago95";
+          rev = "master";
+          sha256 = "f7ab895ae538335af3bffd500347d5500ffdb69b";
+        };
+      })
+    ] ++ config.nixpkgs.overlays;  # Preserve any existing overlays
+
+    # System packages - adding to your existing list
+    environment.systemPackages = with pkgs; [
+      # Existing packages remain...
+      gtk-engine-murrine
+      gtk3
+      xfce.xfce4-settings
+      sound-theme-freedesktop
+    ];
+
+    # Set up the theme installation
+    system.activationScripts.chicago95Theme = ''
+      mkdir -p /usr/share/themes/
+      mkdir -p /usr/share/icons/
+
+      cp -r ${pkgs.chicago95-theme}/Theme/Chicago95 /usr/share/themes/
+      cp -r ${pkgs.chicago95-theme}/Icons/Chicago95 /usr/share/icons/
+
+      mkdir -p /usr/share/icons/Chicago95_Cursor_Black
+      cp -r ${pkgs.chicago95-theme}/Cursors/Chicago95_Cursor_Black/* /usr/share/icons/Chicago95_Cursor_Black/
+
+      chmod -R 755 /usr/share/themes/Chicago95
+      chmod -R 755 /usr/share/icons/Chicago95
+      chmod -R 755 /usr/share/icons/Chicago95_Cursor_Black
+    '';
+
+    # Configure GTK settings
+    environment.etc."gtk-3.0/settings.ini".text = ''
+      [Settings]
+      gtk-theme-name=Chicago95
+      gtk-icon-theme-name=Chicago95
+      gtk-cursor-theme-name=Chicago95_Cursor_Black
+      gtk-font-name=Ubuntu 10
+      gtk-xft-antialias=1
+      gtk-xft-hinting=1
+      gtk-xft-hintstyle=hintslight
+      gtk-xft-rgba=rgb
+    '';
 
   # System version
   system.stateVersion = "23.11";

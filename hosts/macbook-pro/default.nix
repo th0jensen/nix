@@ -59,6 +59,7 @@
             "logi-options+"
             "minecraft"
             "philips-hue-sync"
+            "porting-kit"
             "raycast"
             "tailscale"
             "transmission"
