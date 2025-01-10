@@ -51,6 +51,7 @@
             "chatgpt"
             "cursor"
             "docker"
+            "ghostty"
             "insomnia"
             "jetbrains-toolbox"
             "jordanbaird-ice"

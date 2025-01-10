@@ -223,6 +223,7 @@
     nss_latest
     helix
     zed-editor
+    ghostty
 
     # i3 related
     rofi

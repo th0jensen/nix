@@ -10,7 +10,6 @@
     fish
     fzf
     gh
-    ghostty
     git
     gitu
     helix
