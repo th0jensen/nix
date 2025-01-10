@@ -92,6 +92,7 @@
             thunar-volman
           ];
         };
+    };
 
     # Configure display manager
     displayManager = {
@@ -285,6 +286,12 @@
 
     # Network tools
     iwgtk  # GUI for iwd
+
+    # Chicago95 theme
+    gtk-engine-murrine
+    gtk3
+    xfce.xfce4-settings
+    sound-theme-freedesktop
   ];
 
   # Fonts
