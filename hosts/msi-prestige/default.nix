@@ -312,7 +312,7 @@
           sha256 = "f7ab895ae538335af3bffd500347d5500ffdb69b";
         };
       })
-    ] ++ config.nixpkgs.overlays;  # Preserve any existing overlays
+    ];
 
     # Set up the theme installation
     system.activationScripts.chicago95Theme = ''
