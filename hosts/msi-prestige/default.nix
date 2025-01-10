@@ -285,11 +285,6 @@
 
     # Network tools
     iwgtk  # GUI for iwd
-
-    gtk-engine-murrine
-    gtk3
-    xfce.xfce4-settings
-    sound-theme-freedesktop
   ];
 
   # Fonts
