@@ -49,7 +49,7 @@
             home-manager.users.thomas = { pkgs, ... }: {
               imports = [
                 ./users/thomas/nixos.nix
-                ghostty.homeManagerModules.default
+                ghostty.homeModules.default
               ];
             };
           }
