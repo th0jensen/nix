@@ -2,7 +2,7 @@
   description = "th0jensen Darwin system flake";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    ghostty.url = "github:clo4/ghostty-hm-module";
+    ghostty = { url = "github:ghostty-org/ghostty"; };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -49,7 +49,10 @@
             home-manager.users.thomas = { pkgs, ... }: {
               imports = [
                 ./users/thomas/nixos.nix
-                ghostty.homeModules.default
+              ];
+
+              home.packages = [
+                inputs.ghostty.packages."${pkgs.system}".default
               ];
             };
           }
