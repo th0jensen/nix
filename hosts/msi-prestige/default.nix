@@ -285,6 +285,11 @@
 
     # Network tools
     iwgtk  # GUI for iwd
+
+    gtk-engine-murrine
+    gtk3
+    xfce.xfce4-settings
+    sound-theme-freedesktop
   ];
 
   # Fonts
@@ -306,15 +311,6 @@
         };
       })
     ] ++ config.nixpkgs.overlays;  # Preserve any existing overlays
-
-    # System packages - adding to your existing list
-    environment.systemPackages = with pkgs; [
-      # Existing packages remain...
-      gtk-engine-murrine
-      gtk3
-      xfce.xfce4-settings
-      sound-theme-freedesktop
-    ];
 
     # Set up the theme installation
     system.activationScripts.chicago95Theme = ''
