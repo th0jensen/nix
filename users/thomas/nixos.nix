@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }: {
+{ pkgs, ghostty, ... }: {
   imports = [
     ../../common/home.nix
 
@@ -19,7 +19,7 @@
 
   # i3 specific configurations
   home.packages = [
-    inputs.ghostty.packages."${pkgs.system}".default
+    ghostty.packages."${pkgs.system}".default
     pkgs.google-chrome
     pkgs.alacritty
     pkgs.feh
