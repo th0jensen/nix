@@ -273,7 +273,7 @@
 
   # Fonts
   fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    pkgs.nerd-fonts.jetbrains-mono
     font-awesome
     ubuntu_font_family
     dejavu_fonts
@@ -286,7 +286,7 @@
           owner = "grassmunk";
           repo = "Chicago95";
           rev = "master";
-          sha256 = "f7ab895ae538335af3bffd500347d5500ffdb69b";
+          sha256 = "1jmv6cxvsbfqsdg12hdpjivglpqw74bwv31aig5a813cfz58g49b"; 
         };
       })
     ];
