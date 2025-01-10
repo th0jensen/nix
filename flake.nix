@@ -47,6 +47,7 @@
         modules = [
           ./hosts/msi-prestige/default.nix
           ./hosts/msi-prestige/hardware.nix
+          ghostty.packages."${pkgs.system}".default
 
             home-manager.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;
