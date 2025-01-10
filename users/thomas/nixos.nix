@@ -18,13 +18,14 @@
   home.stateVersion = "23.11";
 
   # i3 specific configurations
-  home.packages = with pkgs; [
-    google-chrome
-    alacritty
-    feh
-    zed-editor
-    wineWowPackages.stable
-    winetricks
+  home.packages = [
+    inputs.ghostty.packages."${pkgs.system}".default
+    pkgs.google-chrome
+    pkgs.alacritty
+    pkgs.feh
+    pkgs.zed-editor
+    pkgs.wineWowPackages.stable
+    pkgs.winetricks
   ];
 
   # Enable X11 configuration

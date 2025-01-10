@@ -7,6 +7,7 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    ghostty = { url = "github:ghostty-org/ghostty"; };
     nix-darwin = {
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -17,7 +18,7 @@
     };
   };
 
-  outputs = inputs@{ nixpkgs, nix-darwin, nix-homebrew, home-manager, ... }: {
+  outputs = inputs@{ nixpkgs, nix-darwin, nix-homebrew, home-manager, ghostty ... }: {
     darwinConfigurations = {
       macbook-pro = nix-darwin.lib.darwinSystem {
         system = "aarch64-darwin";
