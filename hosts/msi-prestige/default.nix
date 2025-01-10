@@ -167,28 +167,6 @@
 
   services.flatpak.enable = true;
 
-    # Caddy configuration
-    services.caddy = {
-      enable = true;
-      configFile = pkgs.writeText "Caddyfile" ''
-          https://prestige.tail75cdf.ts.net {
-              reverse_proxy localhost:11470 {
-                  transport http {
-                      tls_insecure_skip_verify
-                  }
-              }
-          }
-      '';
-    };
-
-    # Firewall configuration
-    networking.firewall = {
-      enable = true;
-      allowedTCPPorts = [ 80 443 11470 ];
-      trustedInterfaces = [ "tailscale0" ];
-      allowedUDPPorts = [ config.services.tailscale.port ];
-    };
-
     # Tailscale configuration
     services.tailscale = {
       enable = true;
@@ -242,8 +220,9 @@
     lua-language-server
     jdk23
     swt
-    caddy
     nss_latest
+    helix
+    zed-editor
 
     # i3 related
     rofi
