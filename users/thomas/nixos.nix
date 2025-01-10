@@ -2,7 +2,7 @@
   imports = [
     ../../common/home.nix
 
-    ../../modules/alacritty.nix
+    ../../modules/ghostty.nix
     ../../modules/helix.nix
     ../../modules/starship.nix
     ../../modules/i3.nix

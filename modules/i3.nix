@@ -16,7 +16,7 @@
 
       # Default keybindings
       keybindings = lib.mkOptionDefault {
-        "${config.xsession.windowManager.i3.config.modifier}+Return" = "exec alacritty";
+        "${config.xsession.windowManager.i3.config.modifier}+Return" = "exec ghostty";
         "${config.xsession.windowManager.i3.config.modifier}+Shift+q" = "kill";
         "${config.xsession.windowManager.i3.config.modifier}+d" = "exec --no-startup-id dmenu_run";
         "${config.xsession.windowManager.i3.config.modifier}+j" = "focus left";
