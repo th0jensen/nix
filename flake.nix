@@ -18,7 +18,7 @@
     };
   };
 
-  outputs = inputs@{ nixpkgs, nix-darwin, nix-homebrew, home-manager, ghostty ... }: {
+  outputs = inputs@{ nixpkgs, nix-darwin, nix-homebrew, home-manager, ghostty, ... }: {
     darwinConfigurations = {
       macbook-pro = nix-darwin.lib.darwinSystem {
         system = "aarch64-darwin";
