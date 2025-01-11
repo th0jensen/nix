@@ -272,8 +272,8 @@
     system.activationScripts.installChicago95 = ''
       mkdir -p /home/thomas/.themes
       mkdir -p /home/thomas/.icons
-      cp -r ${pkgs.chicago95-theme}/Theme/Chicago95 /home/thomas/.themes/
-      cp -r ${pkgs.chicago95-theme}/Icons/Chicago95 /home/thomas/.icons/
+      cp -r ${pkgs.Chicago95}/Theme/Chicago95 /home/thomas/.themes/
+      cp -r ${pkgs.Chicago95}/Icons/Chicago95 /home/thomas/.icons/
       chown -R thomas:users /home/thomas/.themes
       chown -R thomas:users /home/thomas/.icons
     '';
