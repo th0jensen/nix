@@ -2,7 +2,6 @@
   description = "th0jensen Darwin system flake";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    ghostty = { url = "github:ghostty-org/ghostty"; };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -16,7 +15,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = inputs@{ nixpkgs, nix-darwin, nix-homebrew, home-manager, ghostty, ... }: {
+  outputs = inputs@{ nixpkgs, nix-darwin, nix-homebrew, home-manager, ... }: {
     darwinConfigurations = {
       macbook-pro = nix-darwin.lib.darwinSystem {
         system = "aarch64-darwin";
@@ -46,15 +45,7 @@
           home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.thomas = { pkgs, ... }: {
-              imports = [
-                ./users/thomas/nixos.nix
-              ];
-
-              home.packages = [
-                inputs.ghostty.packages."${pkgs.system}".default
-              ];
-            };
+            home-manager.users.thomas = import ./users/thomas/nixos.nix;
           }
         ];
       };
