@@ -79,40 +79,22 @@
 
   # X11 and i3 configuration
   services.xserver = {
-    enable = true;
-
-    desktopManager = {
-        xterm.enable = false;
-        xfce = {
-          enable = true;
-          noDesktop = false;
-          enableXfwm = true;
-          thunarPlugins = with pkgs.xfce; [
-            thunar-archive-plugin
-            thunar-volman
-          ];
-        };
-    };
-
-    # Configure display manager
-    displayManager = {
-      lightdm = {
-        enable = true;
-        greeters.slick.enable = true;
-      };
-      defaultSession = "xfce";
-    };
-
-    # Configure i3
-    windowManager.i3 = {
       enable = true;
-      package = pkgs.i3;
-      extraPackages = with pkgs; [
-        dmenu
-        i3lock
-        i3blocks
-      ];
-    };
+        desktopManager = {
+          xterm.enable = false;
+          xfce = {
+            enable = true;
+            noDesktop = false;
+            enableXfwm = true;
+          };
+        };
+        displayManager = {
+          defaultSession = "xfce";
+          lightdm = {
+            enable = true;
+            greeters.slick.enable = true;
+          };
+        };
 
     # Configure keyboard
     xkb = {
@@ -269,6 +251,13 @@
     gtk3
     xfce.xfce4-settings
     sound-theme-freedesktop
+
+    (pkgs.callPackage (fetchFromGitHub {
+        owner = "grassmunk";
+        repo = "Chicago95";
+        rev = "master";
+        sha256 = "1jmv6cxvsbfqsdg12hdpjivglpqw74bwv31aig5a813cfz58g49b";
+      }) {})
   ];
 
   # Fonts
@@ -279,33 +268,16 @@
     dejavu_fonts
   ];
 
-  # Add custom packages repository for Chicago95
-    nixpkgs.overlays = [
-      (self: super: {
-        chicago95-theme = super.fetchFromGitHub {
-          owner = "grassmunk";
-          repo = "Chicago95";
-          rev = "master";
-          sha256 = "1jmv6cxvsbfqsdg12hdpjivglpqw74bwv31aig5a813cfz58g49b";
-        };
-      })
-    ];
-
     # Set up the theme installation
-    system.activationScripts.chicago95Theme = ''
-      mkdir -p /usr/share/themes/
-      mkdir -p /usr/share/icons/
-
-      cp -r ${pkgs.chicago95-theme}/Theme/Chicago95 /usr/share/themes/
-      cp -r ${pkgs.chicago95-theme}/Icons/Chicago95 /usr/share/icons/
-
-      mkdir -p /usr/share/icons/Chicago95_Cursor_Black
-      cp -r ${pkgs.chicago95-theme}/Cursors/Chicago95_Cursor_Black/* /usr/share/icons/Chicago95_Cursor_Black/
-
-      chmod -R 755 /usr/share/themes/Chicago95
-      chmod -R 755 /usr/share/icons/Chicago95
-      chmod -R 755 /usr/share/icons/Chicago95_Cursor_Black
+    system.activationScripts.installChicago95 = ''
+      mkdir -p /home/thomas/.themes
+      mkdir -p /home/thomas/.icons
+      cp -r ${pkgs.chicago95-theme}/Theme/Chicago95 /home/thomas/.themes/
+      cp -r ${pkgs.chicago95-theme}/Icons/Chicago95 /home/thomas/.icons/
+      chown -R thomas:users /home/thomas/.themes
+      chown -R thomas:users /home/thomas/.icons
     '';
+
 
     # Configure GTK settings
     environment.etc."gtk-3.0/settings.ini".text = ''

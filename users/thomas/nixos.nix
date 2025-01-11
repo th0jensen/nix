@@ -17,7 +17,6 @@
   home.homeDirectory = "/home/thomas";
   home.stateVersion = "23.11";
 
-  # i3 specific configurations
   home.packages = with pkgs; [
     google-chrome
     alacritty
@@ -26,6 +25,16 @@
     wineWowPackages.stable
     winetricks
   ];
+
+  xfconf.settings = {
+      xsettings = {
+        "Net/ThemeName" = "Chicago95";
+        "Net/IconThemeName" = "Chicago95";
+      };
+      xfwm4 = {
+        "general/theme" = "Chicago95";
+      };
+    };
 
   # Enable X11 configuration
   xdg.enable = true;
