@@ -6,7 +6,7 @@
             fish_add_path /home/thomas/.cargo/bin
 
             set -U fish_greeting ""
-            set -gx TERM screen-256color-bce
+            set -gx TERM xterm-ghostty
 
             # Aliases
             alias gitignore='gitignore_edit'

@@ -85,8 +85,8 @@
         xterm.enable = false;
         xfce = {
           enable = true;
-          noDesktop = true;
-          enableXfwm = false;
+          noDesktop = false;
+          enableXfwm = true;
           thunarPlugins = with pkgs.xfce; [
             thunar-archive-plugin
             thunar-volman
@@ -100,7 +100,7 @@
         enable = true;
         greeters.slick.enable = true;
       };
-      defaultSession = "xfce+i3";
+      defaultSession = "xfce";
     };
 
     # Configure i3
@@ -286,7 +286,7 @@
           owner = "grassmunk";
           repo = "Chicago95";
           rev = "master";
-          sha256 = "1jmv6cxvsbfqsdg12hdpjivglpqw74bwv31aig5a813cfz58g49b"; 
+          sha256 = "1jmv6cxvsbfqsdg12hdpjivglpqw74bwv31aig5a813cfz58g49b";
         };
       })
     ];
