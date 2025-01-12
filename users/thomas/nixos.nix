@@ -18,8 +18,8 @@
   home.stateVersion = "23.11";
 
   home.packages = with pkgs; [
-    google-chrome
     alacritty
+    epiphany
     feh
     zed-editor
     wineWowPackages.stable

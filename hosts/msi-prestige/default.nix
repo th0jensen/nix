@@ -211,6 +211,8 @@
     swt
     nss_latest
 
+    ghostty
+    
     # i3 related
     rofi
     feh
@@ -223,6 +225,7 @@
     xfce.thunar-volman
     xfce.thunar-archive-plugin
     xfce.xfce4-power-manager
+    xfce.xfce4-whiskermenu-plugin
 
     # System tools
     lxappearance
