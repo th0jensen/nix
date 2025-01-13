@@ -67,21 +67,21 @@
       };
 
       startup = [
-      {
-        command = "nm-applet";
-        always = false;
-        notification = false;
-      }
-      {
-        command = "picom -b";
-        always = false;
-        notification = false;
-      }
-      {
-        command = "feh --bg-fill ~/.config/wallpaper.png";
-        always = true;
-        notification = false;
-      }];
+        {
+          command = "nm-applet";
+          always = false;
+          notification = false;
+        }
+        {
+          command = "picom -b";
+          always = false;
+          notification = false;
+        }
+        {
+          command = "feh --bg-fill ~/.config/wallpaper.png";
+          always = true;
+          notification = false;
+        }];
     };
   };
 }

@@ -10,6 +10,7 @@
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    zen-browser.url = "github:MarceColl/zen-browser-flake";
     nix-homebrew = {
       url = "github:zhaofengli-wip/nix-homebrew";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -19,6 +20,7 @@
     darwinConfigurations = {
       macbook-pro = nix-darwin.lib.darwinSystem {
         system = "aarch64-darwin";
+        specialArgs = { inherit inputs; };
         modules = [
           ./hosts/macbook-pro/default.nix
           nix-homebrew.darwinModules.nix-homebrew {
@@ -39,12 +41,14 @@
     nixosConfigurations = {
       msi-prestige = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
+        specialArgs = { inherit inputs; };
         modules = [
           ./hosts/msi-prestige/default.nix
           ./hosts/msi-prestige/hardware.nix
           home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = { inherit inputs; };
             home-manager.users.thomas = import ./users/thomas/nixos.nix;
           }
         ];

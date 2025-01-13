@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, inputs, ... }: {
   imports = [
     ../../common/home.nix
 
@@ -6,6 +6,7 @@
     ../../modules/helix.nix
     ../../modules/starship.nix
     ../../modules/i3.nix
+    ../../modules/ioquake3.nix
   ];
 
   programs.git = {
@@ -18,23 +19,23 @@
   home.stateVersion = "23.11";
 
   home.packages = with pkgs; [
-    alacritty
-    epiphany
     feh
+    inputs.zen-browser.packages."${system}".default
+    ioquake3
     zed-editor
     wineWowPackages.stable
     winetricks
   ];
 
   xfconf.settings = {
-      xsettings = {
-        "Net/ThemeName" = "Chicago95";
-        "Net/IconThemeName" = "Chicago95";
-      };
-      xfwm4 = {
-        "general/theme" = "Chicago95";
-      };
+    xsettings = {
+      "Net/ThemeName" = "Chicago95";
+      "Net/IconThemeName" = "Chicago95";
     };
+    xfwm4 = {
+      "general/theme" = "Chicago95";
+    };
+  };
 
   # Enable X11 configuration
   xdg.enable = true;

@@ -1,5 +1,5 @@
 { pkgs, ... }: {
-    home.file.".aerospace.toml".text = ''
+  home.file.".aerospace.toml".text = ''
     # Start AeroSpace at login
     start-at-login = true
 
@@ -21,7 +21,7 @@
     [[on-window-detected]]
     if.app-id="com.mitchellh.ghostty"
     run= [
-      "layout tiling",
+    "layout tiling",
     ]
 
 
@@ -116,5 +116,5 @@
     2 = 'main'
     3 = 'main'
     4 = 'main'
-    '';
+  '';
 }

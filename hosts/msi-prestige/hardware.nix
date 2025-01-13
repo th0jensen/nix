@@ -116,7 +116,7 @@
   # Add hardware related packages
   environment.systemPackages = with pkgs; [
     pciutils
-    nvtop
+    nvtopPackages.full
     intel-gpu-tools
     glxinfo
     powertop
@@ -139,25 +139,25 @@
       configFile = pkgs.writeText "thermal-conf.xml" ''
         <?xml version="1.0"?>
         <ThermalConfiguration>
-          <ThermalZones>
-            <ThermalZone>
-              <Type>cpu</Type>
-              <TripPoints>
-                <TripPoint>
-                  <SensorType>x86_pkg_temp</SensorType>
-                  <Temperature>75000</Temperature>
-                  <type>passive</type>
-                  <ControlType>PARALLEL</ControlType>
-                  <CoolingDevice>
-                    <index>1</index>
-                    <type>rapl_controller</type>
-                    <influence>100</influence>
-                    <SamplingPeriod>5</SamplingPeriod>
-                  </CoolingDevice>
-                </TripPoint>
-              </TripPoints>
-            </ThermalZone>
-          </ThermalZones>
+        <ThermalZones>
+        <ThermalZone>
+        <Type>cpu</Type>
+        <TripPoints>
+        <TripPoint>
+        <SensorType>x86_pkg_temp</SensorType>
+        <Temperature>75000</Temperature>
+        <type>passive</type>
+        <ControlType>PARALLEL</ControlType>
+        <CoolingDevice>
+        <index>1</index>
+        <type>rapl_controller</type>
+        <influence>100</influence>
+        <SamplingPeriod>5</SamplingPeriod>
+        </CoolingDevice>
+        </TripPoint>
+        </TripPoints>
+        </ThermalZone>
+        </ThermalZones>
         </ThermalConfiguration>
       '';
     };
