@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ pkgs, ... }: {
 
   imports = [
     ./fish.nix
@@ -40,21 +40,28 @@
   # Create systemd service for Sunshine
   systemd.services.sunshine = {
     description = "Sunshine streaming service";
-    wantedBy = [ "graphical-session.target" ];
-    after = [ "network.target" "graphical-session.target" ];
+    wantedBy = [ "multi-user.target" ];
+    after = [ "network.target" "display-manager.service" ];
 
     serviceConfig = {
       Type = "simple";
       ExecStart = "${pkgs.sunshine}/bin/sunshine";
       Restart = "always";
       User = "thomas";
+
       Environment = [
         "DISPLAY=:0"
         "XAUTHORITY=/home/thomas/.Xauthority"
         "XDG_RUNTIME_DIR=/run/user/1000"
+        "PULSE_SERVER=unix:/run/user/1000/pulse/native"
       ];
+
       RuntimeDirectory = "sunshine";
       RuntimeDirectoryMode = "0755";
+
+      LidSwitchIgnoreInhibited = "yes";
+      StandardOutput = "journal";
+      StandardError = "journal";
     };
   };
 
@@ -72,6 +79,8 @@
     gamepad = true
     virtual_gamepad = true
     virtual_sink = false
+    cmd_before_session = "xset dpms force on"
+    cmd_after_session = "xset dpms force on"
   '';
 
   services.avahi.publish.enable = true;
@@ -84,22 +93,12 @@
       xterm.enable = false;
       xfce.enable = true;
     };
-    displayManager = {
-      lightdm = {
-        enable = true;
-        greeters.slick.enable = true;
-      };
-    };
-    xkb = {
-      layout = "us";
-      variant = "";
-    };
+    displayManager.lightdm.enable = true;
+    xkb.layout = "us";
   };
 
   # Display manager
-  services.displayManager = {
-    defaultSession = "xfce";
-  };
+  services.displayManager.defaultSession = "xfce";
 
   # Configure Input
   services.libinput = {
@@ -193,7 +192,6 @@
   # System packages
   environment.systemPackages = with pkgs; [
     # Basic utilities
-    vim
     wget
     git
     curl
@@ -202,7 +200,6 @@
     ripgrep-all
     avahi
     sunshine
-    lutris
     nvidia-docker
 
     # Dev tools
@@ -216,22 +213,25 @@
     jdk23
     swt
     nss_latest
-
     ghostty
 
-    # i3 related
-    rofi
-    feh
-    picom
-    dunst
-    arandr
+    # XFCE
     pavucontrol
     networkmanagerapplet
     xfce.thunar
     xfce.thunar-volman
     xfce.thunar-archive-plugin
     xfce.xfce4-power-manager
+    gtk-engine-murrine
+    gtk3
+    gtk4
+    xfce.xfce4-settings
     xfce.xfce4-whiskermenu-plugin
+    sound-theme-freedesktop
+    chicago95-theme
+    windows-95-theme
+    xorg.xrandr
+    xorg.xinit
 
     # System tools
     lxappearance
@@ -259,17 +259,7 @@
     iotop
     lm_sensors
 
-    # Network tools
-    iwgtk  # GUI for iwd
-
     # Chicago95 theme
-    gtk-engine-murrine
-    gtk3
-    xfce.xfce4-settings
-    sound-theme-freedesktop
-
-    chicago95-theme
-    windows-95-theme
   ];
 
   # Fonts
@@ -306,24 +296,27 @@
     gtk-xft-rgba=rgb
   '';
 
-  # Add GTK4 settings
-  environment.etc."gtk-4.0/settings.ini".text = ''
-    [Settings]
-    gtk-theme-name=Windows-95
-    gtk-icon-theme-name=Windows-95
-    gtk-font-name=Ubuntu 10
-    gtk-xft-antialias=1
-    gtk-xft-hinting=1
-    gtk-xft-hintstyle=hintslight
-    gtk-xft-rgba=rgb
-  '';
-
   # System version
   system.stateVersion = "23.11";
 
-  # Enable uinput
-  boot.kernelModules = [ "uinput" ];
   services.udev.extraRules = ''
     KERNEL=="uinput", SUBSYSTEM=="misc", TAG+="uaccess", GROUP="input", MODE="0660"
+    # Add X11 input device permissions
+    SUBSYSTEM=="input", ACTION=="add", RUN+="${pkgs.xorg.xhost}/bin/xhost +SI:localuser:thomas"
   '';
+
+  # Enable uinput
+  boot.kernelModules = [
+    "uinput"
+    "nvidia"
+    "nvidia_modeset"
+    "nvidia_uvm"
+    "nvidia_drm"
+  ];
+
+  # Required for proper display handling
+  boot.kernelParams = [
+    "nvidia-drm.modeset=1"
+    "video=VIRTUAL-1:1920x1080@60"
+  ];
 }

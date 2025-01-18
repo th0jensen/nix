@@ -61,7 +61,6 @@
 
   # WiFi and Bluetooth support
   networking = {
-
     hostName = "prestige";
 
     networkmanager = {

@@ -20,6 +20,7 @@
 
   home.packages = with pkgs; [
     feh
+    freeciv
     inputs.zen-browser.packages."${system}".default
     ioquake3
     zed-editor
