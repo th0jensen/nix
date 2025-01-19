@@ -1,14 +1,10 @@
 { pkgs, ... }: {
-
   imports = [
-    ./fish.nix
+    ./desktop.nix
+    ./hardware.nix
+
+    ../../modules/sunshine.nix
   ];
-
-  # Enable non-free packages
-  nixpkgs.config.allowUnfree = true;
-
-  # Enable flakes
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Basic system configuration
   boot.loader.systemd-boot.enable = true;
@@ -29,96 +25,6 @@
     shell = pkgs.fish;
   };
 
-  # Configure Sunshine service and capabilities
-  security.wrappers.sunshine = {
-    owner = "root";
-    group = "root";
-    capabilities = "cap_sys_admin+ep";
-    source = "${pkgs.sunshine}/bin/sunshine";
-  };
-
-  # Create systemd service for Sunshine
-  systemd.services.sunshine = {
-    description = "Sunshine streaming service";
-    wantedBy = [ "multi-user.target" ];
-    after = [ "network.target" "display-manager.service" ];
-
-    serviceConfig = {
-      Type = "simple";
-      ExecStart = "${pkgs.sunshine}/bin/sunshine";
-      Restart = "always";
-      User = "thomas";
-
-      Environment = [
-        "DISPLAY=:0"
-        "XAUTHORITY=/home/thomas/.Xauthority"
-        "XDG_RUNTIME_DIR=/run/user/1000"
-        "PULSE_SERVER=unix:/run/user/1000/pulse/native"
-      ];
-
-      RuntimeDirectory = "sunshine";
-      RuntimeDirectoryMode = "0755";
-
-      LidSwitchIgnoreInhibited = "yes";
-      StandardOutput = "journal";
-      StandardError = "journal";
-    };
-  };
-
-  # Create Sunshine config directory and configuration
-  environment.etc."sunshine/sunshine.conf".text = ''
-    min_log_level = "Info"
-    origin_web_ui_allowed = ["100.0.0.0/8"]
-    origin_pin_allowed = ["100.0.0.0/8"]
-    encoder = "nvenc"
-    min_bitrate = 10
-    max_bitrate = 50
-    hevc_mode = "0"
-    back_button_timeout = 100
-    key_repeat_delay = 100
-    gamepad = true
-    virtual_gamepad = true
-    virtual_sink = false
-    cmd_before_session = "xset dpms force on"
-    cmd_after_session = "xset dpms force on"
-  '';
-
-  services.avahi.publish.enable = true;
-  services.avahi.publish.userServices = true;
-
-  # X11 configuration
-  services.xserver = {
-    enable = true;
-    desktopManager = {
-      xterm.enable = false;
-      xfce.enable = true;
-    };
-    displayManager.lightdm.enable = true;
-    xkb.layout = "us";
-  };
-
-  # Display manager
-  services.displayManager.defaultSession = "xfce";
-
-  # Configure Input
-  services.libinput = {
-    enable = true;
-    mouse = {
-      accelProfile = "flat";
-      accelSpeed = "0";
-    };
-    touchpad = {
-      tapping = true;
-      naturalScrolling = true;
-      middleEmulation = true;
-    };
-  };
-
-  # No pointer trails
-  environment.sessionVariables = {
-    XCURSOR_SIZE = "24";
-  };
-
   # Audio
   security.rtkit.enable = true;
   services.pipewire = {
@@ -131,13 +37,6 @@
   # Docker
   virtualisation.docker.enable = true;
   hardware.nvidia-container-toolkit.enable = true;
-
-  xdg.portal = {
-    enable = true;
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-gtk
-    ];
-  };
 
   services.flatpak.enable = true;
 
@@ -169,39 +68,8 @@
     dedicatedServer.openFirewall = true;
   };
 
-  nixpkgs.overlays = [
-    (self: super: {
-      chicago95-theme = super.fetchFromGitHub {
-        owner = "grassmunk";
-        repo = "Chicago95";
-        rev = "master";
-        sha256 = "1jmv6cxvsbfqsdg12hdpjivglpqw74bwv31aig5a813cfz58g49b";
-      };
-    })
-
-    (self: super: {
-      windows-95-theme = super.fetchFromGitHub {
-        owner = "B00merang-Project";
-        repo = "Windows-95";
-        rev = "master";
-        sha256 = "f57OhcjCCxxnJszRSUVnndh6TYIhzo5QaAn4Yf3nJtI=";
-      };
-    })
-  ];
-
   # System packages
   environment.systemPackages = with pkgs; [
-    # Basic utilities
-    wget
-    git
-    curl
-    unzip
-    usbutils
-    ripgrep-all
-    avahi
-    sunshine
-    nvidia-docker
-
     # Dev tools
     deno
     nixd
@@ -215,59 +83,6 @@
     nss_latest
     ghostty
 
-    # XFCE
-    pavucontrol
-    networkmanagerapplet
-    xfce.thunar
-    xfce.thunar-volman
-    xfce.thunar-archive-plugin
-    xfce.xfce4-power-manager
-    gtk-engine-murrine
-    gtk3
-    gtk4
-    xfce.xfce4-settings
-    xfce.xfce4-whiskermenu-plugin
-    sound-theme-freedesktop
-    chicago95-theme
-    windows-95-theme
-    xorg.xrandr
-    xorg.xinit
-
-    # System tools
-    lxappearance
-    xorg.xbacklight
-    acpi
-    flameshot
-    blueman
-
-    # Media
-    pulseaudio
-    pamixer
-    brightnessctl
-
-    # Additional tools
-    xclip
-    xsel
-
-    # Power management tools
-    powertop
-    tlp
-    acpi
-
-    # System monitoring
-    htop
-    iotop
-    lm_sensors
-
-    # Chicago95 theme
-  ];
-
-  # Fonts
-  fonts.packages = with pkgs; [
-    pkgs.nerd-fonts.jetbrains-mono
-    font-awesome
-    ubuntu_font_family
-    dejavu_fonts
   ];
 
   # Set up the theme installation

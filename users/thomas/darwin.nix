@@ -1,17 +1,7 @@
 { pkgs, ... }: {
   imports = [
-    ../../common/home.nix
-
-    ../../modules/aerospace.nix
-    ../../modules/ghostty.nix
-    ../../modules/helix.nix
-    ../../modules/starship.nix
+    ./default.nix
   ];
-
-  programs.git = {
-    userName = "Thomas Jensen";
-    userEmail = "thomas.jensen_@outlook.com";
-  };
 
   home.username = "thomas";
   home.homeDirectory = "/Users/thomas";

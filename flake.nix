@@ -22,6 +22,7 @@
         system = "aarch64-darwin";
         specialArgs = { inherit inputs; };
         modules = [
+          ./hosts/common.nix
           ./hosts/macbook-pro/default.nix
           nix-homebrew.darwinModules.nix-homebrew {
             nix-homebrew = {
@@ -43,8 +44,8 @@
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
+          ./hosts/common.nix
           ./hosts/msi-prestige/default.nix
-          ./hosts/msi-prestige/hardware.nix
           home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;

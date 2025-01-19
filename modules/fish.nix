@@ -1,7 +1,21 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+let
+nvm-fish = pkgs.fetchFromGitHub {
+  owner = "jorgebucaran";
+  repo = "nvm.fish";
+  rev = "2.2.13";
+  sha256 = "sha256-LV5NiHfg4JOrcjW7hAasUSukT43UBNXGPi1oZWPbnCA=";
+};
+in {
   programs.fish = {
     enable = true;
-    interactiveShellInit = ''
+    package = pkgs.fish;
+    plugins = [
+      { name = "nvm"; src = nvm-fish; }
+    ];
+
+    shellInit = ''
+      # Path configurations
       fish_add_path /opt/homebrew/sbin
       fish_add_path /opt/homebrew/bin
       fish_add_path /opt/homebrew/opt/ruby/bin
@@ -10,31 +24,24 @@
       fish_add_path /run/wrappers/bin
       fish_add_path /etc/profiles/per-user/thomas/bin
       fish_add_path $HOME/.deno/bin
+    '';
 
-      set -U fish_greeting ""
+    shellAliases = {
+      gitignore = "gitignore_edit";
+      license = "create_license";
+      dev_server = "connect_server";
+      la = "eza -al --color=always --icons --group-directories-first";
+      ls = "eza -a --color=always --icons  --group-directories-first";
+      ll = "eza -l --color=always --icons --group-directories-first";
+      lt = "eza -aT --color=always --icons --group-directories-first";
+      "l." = "eza -a | egrep '^\\.'";
+      ta = "tmux attach";
+      rg = "rga-fzf";
+    };
 
-      # Aliases
-      alias gitignore='gitignore_edit'
-      alias license='create_license'
-      alias dev_server='connect_server'
-      alias la='eza -al --color=always --icons --group-directories-first'
-      alias ls='eza -a --color=always --icons  --group-directories-first'
-      alias ll='eza -l --color=always --icons --group-directories-first'
-      alias lt='eza -aT --color=always --icons --group-directories-first'
-      alias l.='eza -a | egrep "^\."'
-      alias ta='tmux attach'
-      alias rg="rga-fzf"
-
+    interactiveShellInit = ''
       fzf --fish | source
-
       starship init fish | source
-
-      # Install Fisher if not already installed
-      # Install nvm.fish plugin
-      if not functions -q fisher
-      curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
-      fisher install jorgebucaran/nvm.fish
-      end
     '';
   };
 }
