@@ -11,6 +11,7 @@
     freeciv
     inputs.zen-browser.packages."${system}".default
     ioquake3
+    zed-editor
   ];
 
   # Enable X11 configuration
