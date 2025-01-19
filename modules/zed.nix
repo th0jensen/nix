@@ -1,16 +1,7 @@
 { pkgs, ... }: {
   programs.zed-editor = {
     enable = true;
-    package = if pkgs.stdenv.isDarwin then
-    pkgs.runCommand "zed-editor-dummy" {
-      meta.mainProgram = "zed-editor";
-    } ''
-      mkdir -p $out/bin
-      echo "#!/bin/sh" > $out/bin/zeditor
-      echo "exec /Applications/Zed\ Preview.app/Contents/MacOS/zed \"\$@\"" >> $out/bin/zeditor
-      chmod +x $out/bin/zeditor
-    ''
-    else pkgs.zed-editor;
+    package = pkgs.zed-editor;
 
     extraPackages = with pkgs; [
       nixd
