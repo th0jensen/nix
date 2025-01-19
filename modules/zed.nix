@@ -7,9 +7,7 @@
       rustup
     ];
 
-    extensions = [
-      "gruber-darker.zed"
-    ];
+    extensions = [ "gruber-darker" ];
 
     userSettings = {
       active_pane_modifiers = {

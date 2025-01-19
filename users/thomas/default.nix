@@ -14,9 +14,17 @@
     rustup
   ];
 
+  home.sessionVariables = {
+      EDITOR = "hx";
+      VISUAL = "hx";
+    };
+
   programs.git = {
     userName = "Thomas Jensen";
     userEmail = "thomas.jensen_@outlook.com";
+    extraConfig = {
+      core.editor = "hx";
+    };
   };
 
   programs.home-manager.enable = true;

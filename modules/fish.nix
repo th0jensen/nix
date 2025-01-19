@@ -24,6 +24,8 @@ in {
       fish_add_path /run/wrappers/bin
       fish_add_path /etc/profiles/per-user/thomas/bin
       fish_add_path $HOME/.deno/bin
+
+      set -U fish_greeting
     '';
 
     shellAliases = {

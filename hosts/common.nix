@@ -15,6 +15,7 @@
     btop
     curl
     dust
+    eza
     fastfetch
     fish
     fzf
