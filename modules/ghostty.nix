@@ -2,13 +2,13 @@
   programs.ghostty = {
     enable = true;
     package = if pkgs.stdenv.isDarwin then
-    pkgs.runCommand "zed-preview-dummy" {
-      meta.mainProgram = "zed-preview";
+    pkgs.runCommand "ghostty-dummy" {
+      meta.mainProgram = "ghostty";
     } ''
       mkdir -p $out/bin
-      echo "#!/bin/sh" > $out/bin/zed-preview
-      echo "exec /Applications/Zed\ Preview.app/Contents/MacOS/zed-preview \"\$@\"" >> $out/bin/zed-preview
-      chmod +x $out/bin/zed-preview
+      echo "#!/bin/sh" > $out/bin/ghostty
+      echo "exec /Applications/Ghostty.app/Contents/MacOS/ghostty \"\$@\"" >> $out/bin/ghostty
+      chmod +x $out/bin/ghostty
     ''
     else pkgs.zed-editor;
     enableFishIntegration = true;

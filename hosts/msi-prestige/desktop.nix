@@ -17,7 +17,7 @@
     enable = true;
 
     mouse = {
-      accelProfile = "flat";
+      accelProfile = "adaptive";
       accelSpeed = "0";
     };
 

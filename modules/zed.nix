@@ -1,11 +1,16 @@
 { pkgs, ... }: {
   programs.zed-editor = {
     enable = true;
-
-    extraPackages = with pkgs; [
-      nixd
-      rustup
-    ];
+    package = if pkgs.stdenv.isDarwin then
+    pkgs.runCommand "zed-editor-dummy" {
+      meta.mainProgram = "zed-editor";
+    } ''
+      mkdir -p $out/bin
+      echo "#!/bin/sh" > $out/bin/zeditor
+      echo "exec /Applications/Zed\ Preview.app/Contents/MacOS/zed \"\$@\"" >> $out/bin/zeditor
+      chmod +x $out/bin/zeditor
+    ''
+    else pkgs.zed-editor;
 
     extensions = [ "gruber-darker" ];
 
@@ -17,8 +22,9 @@
       vim_mode = false;
       theme = "Gruber Darker - Minimal";
       ui_font_family = "JetBrainsMono Nerd Font";
-      ui_font_size = 16;
+      ui_font_size = if pkgs.stdenv.isDarwin then 16 else 13;
       buffer_font_family = "JetBrainsMono Nerd Font";
+      buffer_font_size = if pkgs.stdenv.isDarwin then 15 else 12;
       unstable.ui_density = "comfortable";
       terminal = {
         dock = "bottom";
@@ -28,11 +34,11 @@
         toolbar = {
           breadcrumbs = false;
         };
-        button = false;
+        button = true;
         working_directory = "current_project_directory";
       };
       features = {
-        inline_completion_provider = "copilot";
+        inline_completion_provider = "none";
       };
       tab_bar = {
         show_nav_history_buttons = false;
