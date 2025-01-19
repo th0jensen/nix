@@ -7,7 +7,6 @@
 
   nix.package = pkgs.nix;
   nix.gc.automatic = true;
-  services.nix-daemon.enable = true;
   nix.settings.auto-optimise-store = false;
 
   environment.systemPackages = with pkgs; [
