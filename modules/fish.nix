@@ -23,7 +23,7 @@ in {
       fish_add_path /run/current-system/sw/bin
       fish_add_path /run/wrappers/bin
       fish_add_path /etc/profiles/per-user/thomas/bin
-      fish_add_path $HOME/.deno/bin
+      fish_add_path $HOME/.cargo/bin
 
       set -U fish_greeting
     '';

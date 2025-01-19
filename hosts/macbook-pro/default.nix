@@ -7,6 +7,7 @@
 
   system.stateVersion = 4;
   nixpkgs.hostPlatform = "aarch64-darwin";
+  services.nix-daemon.enable = true;
 
   users.users.thomas = {
     name = "thomas";
