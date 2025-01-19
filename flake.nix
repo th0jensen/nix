@@ -1,7 +1,10 @@
 {
-  description = "th0jensen Darwin system flake";
+  description = "Thomas Jensen's Nix configuration";
+
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    zen-browser.url = "github:0xc000022070/zen-browser-flake";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -10,12 +13,12 @@
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    zen-browser.url = "github:0xc000022070/zen-browser-flake";
     nix-homebrew = {
       url = "github:zhaofengli-wip/nix-homebrew";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
+
   outputs = inputs@{ nixpkgs, nix-darwin, nix-homebrew, home-manager, ... }: {
     darwinConfigurations = {
       macbook-pro = nix-darwin.lib.darwinSystem {
@@ -39,6 +42,7 @@
         ];
       };
     };
+
     nixosConfigurations = {
       msi-prestige = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";

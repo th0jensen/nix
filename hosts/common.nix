@@ -1,8 +1,14 @@
-{ pkgs, system, ... }: {
+{ pkgs, ... }: {
   programs.fish.enable = true;
 
-  nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  nixpkgs.config.allowUnfree = true;
+
+  nix.package = pkgs.nix;
+  nix.gc.automatic = true;
+  services.nix-daemon.enable = true;
+  nix.settings.auto-optimise-store = false;
 
   environment.systemPackages = with pkgs; [
     bat

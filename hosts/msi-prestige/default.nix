@@ -6,6 +6,8 @@
     ../../modules/sunshine.nix
   ];
 
+  system.stateVersion = "23.11";
+
   # Basic system configuration
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -85,34 +87,6 @@
 
   ];
 
-  # Set up the theme installation
-  system.activationScripts.installChicago95 = ''
-    mkdir -p /home/thomas/.themes
-    mkdir -p /home/thomas/.icons
-
-    cp -r ${pkgs.chicago95-theme}/Theme/Chicago95 /home/thomas/.themes/
-    cp -r ${pkgs.chicago95-theme}/Icons/Chicago95 /home/thomas/.icons/
-
-    chown -R thomas:users /home/thomas/.themes
-    chown -R thomas:users /home/thomas/.icons
-  '';
-
-
-  # Configure GTK settings
-  environment.etc."gtk-3.0/settings.ini".text = ''
-    [Settings]
-    gtk-theme-name=Chicago95
-    gtk-icon-theme-name=Chicago95
-    gtk-cursor-theme-name=Chicago95_Cursor_Black
-    gtk-font-name=Ubuntu 10
-    gtk-xft-antialias=1
-    gtk-xft-hinting=1
-    gtk-xft-hintstyle=hintslight
-    gtk-xft-rgba=rgb
-  '';
-
-  # System version
-  system.stateVersion = "23.11";
 
   services.udev.extraRules = ''
     KERNEL=="uinput", SUBSYSTEM=="misc", TAG+="uaccess", GROUP="input", MODE="0660"

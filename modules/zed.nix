@@ -165,11 +165,6 @@
         bindings = {
           cmd-r = "task::Spawn";
           shift-cmd-r = "task::Rerun";
-          ctrl-alt-cmd-shift-a = "workspace::ToggleZoom";
-          ctrl-alt-cmd-shift-z = [
-            "workspace::SetBottomDockLayout"
-            "Contained"
-          ];
           alt-x = "command_palette::Toggle";
           cmd-b = "workspace::ToggleLeftDock";
           cmd-t = "workspace::ToggleBottomDock";

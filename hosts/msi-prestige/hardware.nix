@@ -1,4 +1,5 @@
 { config, pkgs, lib, ... }: {
+
   hardware.enableAllFirmware = true;
   hardware.enableRedistributableFirmware = true;
   hardware.firmware = [ pkgs.linux-firmware ];
@@ -119,6 +120,7 @@
     intel-gpu-tools
     glxinfo
     powertop
+    usbutils
     tlp
     iw
     wirelesstools
