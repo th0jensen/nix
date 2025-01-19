@@ -29,7 +29,6 @@
     unrar
     unzip
     wget
-    zed-editor
   ];
 
   fonts.packages = with pkgs; [
