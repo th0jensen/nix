@@ -24,7 +24,7 @@
   };
 
   outputs = inputs@{
-    nixpkgs, nix-darwin, nix-homebrew, home-manager, nur, duke3d-flake, ...
+    nixpkgs, nix-darwin, nix-homebrew, home-manager, nur, ...
   }: {
     darwinConfigurations = {
       macbook-pro = nix-darwin.lib.darwinSystem {
