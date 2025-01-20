@@ -1,4 +1,33 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
+  boot = {
+    plymouth = {
+      enable = true;
+      theme = "Chicago95";
+      themePackages = [
+        (pkgs.runCommand "chicago95-plymouth" {
+          meta.mainProgram = "Chicago95";
+        } ''
+          mkdir -p $out/share/plymouth/themes/
+          cp -r ${pkgs.chicago95-theme}/Plymouth/Chicago95 $out/share/plymouth/themes/
+        '')
+      ];
+    };
+
+    consoleLogLevel = 0;
+    initrd.verbose = false;
+    kernelParams = [
+      "quiet"
+      "splash"
+      "boot.shell_on_fail"
+      "loglevel=3"
+      "rd.systemd.show_status=false"
+      "rd.udev.log_level=3"
+      "udev.log_priority=3"
+    ];
+
+    loader.timeout = 0;
+  };
+
   services.xserver = {
     enable = true;
 
@@ -7,7 +36,32 @@
       xfce.enable = true;
     };
 
-    displayManager.lightdm.enable = true;
+    displayManager.lightdm = {
+      enable = true;
+      greeters.gtk = {
+        enable = true;
+        theme = {
+          name = "Chicago95";
+          package = (pkgs.runCommand "chicago95-lightdm" {
+            meta.mainProgram = "Chicago95";
+          } ''
+            mkdir -p $out/share/themes/
+            cp -r ${pkgs.chicago95-theme}/Lightdm/Chicago95 $out/share/themes/
+          '');
+        };
+        extraConfig = ''
+          logind-check-graphical=true
+        '';
+      };
+    };
+    # greeters.gtk.enable = false;
+    # greeter = lib.mkForce {
+    #   enable = true;
+    #   name = "webkit2-greeter";
+    #   package = pkgs.nur.repos.mloeper.lightdm-webkit2-greeter;
+    # };
+    # extraSeatDefaults = lib.mkForce "greeter-session=webkit2-greeter";
+
     xkb.layout = "us";
   };
 
@@ -28,6 +82,19 @@
     };
   };
 
+  environment.etc = {
+    "lightdm/lightdm-gtk-greeter.conf" = lib.mkForce {
+      text = ''
+        [greeter]
+        background=/usr/share/wallpapers/background.png
+        theme-name=Chicago95
+        icon-theme-name=Chicago95
+        cursor-theme-name=Adwaita
+        cursor-theme-size=16
+      '';
+    };
+  };
+
   environment.sessionVariables = {
     XCURSOR_SIZE = "24";
     GTK_THEME = "Chicago95";
@@ -43,10 +110,10 @@
   nixpkgs.overlays = [
     (self: super: {
       chicago95-theme = super.fetchFromGitHub {
-        owner = "grassmunk";
+        owner = "th0jensen";
         repo = "Chicago95";
         rev = "master";
-        sha256 = "1jmv6cxvsbfqsdg12hdpjivglpqw74bwv31aig5a813cfz58g49b";
+        sha256 = "sha256-lAIZyQlMhJ+fAr7WDpCu/iZyatk6kdWdSy1LseWvYFk=";
       };
     })
   ];
@@ -54,12 +121,23 @@
   system.activationScripts.installChicago95 = ''
     mkdir -p /home/thomas/.themes
     mkdir -p /home/thomas/.icons
+    mkdir -p /usr/share/lightdm-webkit/themes
+    mkdir -p /home/thomas/.config/gtk-3.0
 
     cp -r ${pkgs.chicago95-theme}/Theme/Chicago95 /home/thomas/.themes/
+    cp -r ${pkgs.chicago95-theme}/Theme/Chicago95 /usr/share/themes/
     cp -r ${pkgs.chicago95-theme}/Icons/Chicago95 /home/thomas/.icons/
+    cp -r ${pkgs.chicago95-theme}/Icons/Chicago95 /usr/share/icons/
+
+    cp -r ${pkgs.chicago95-theme}/Cursors /home/thomas/.icons
+    cp ${pkgs.chicago95-theme}/Fonts/vga_font/LessPerfectDOSVGA.ttf /usr/share/fonts
+    cp ${pkgs.chicago95-theme}/Extras/override/gtk-3.24/gtk.css \
+    /home/thomas/.config/gtk-3.0/
 
     chown -R thomas:users /home/thomas/.themes
     chown -R thomas:users /home/thomas/.icons
+    chown -R lightdm:lightdm /usr/share/lightdm-webkit/themes/Chicago95
+    chmod -R 755 /usr/share/lightdm-webkit/themes/Chicago95
   '';
 
   environment.systemPackages = with pkgs; [
@@ -67,6 +145,7 @@
     blueman
     brightnessctl
     chicago95-theme
+    fontconfig
     flameshot
     gtk-engine-murrine
     gtk3

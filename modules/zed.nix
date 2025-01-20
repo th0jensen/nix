@@ -28,8 +28,9 @@
       unstable.ui_density = "comfortable";
       terminal = {
         dock = "bottom";
-        shell = {
-          program = "/etc/profiles/per-user/thomas/bin/fish";
+        shell = "system";
+        env = {
+          TERM = "xterm-ghostty";
         };
         toolbar = {
           breadcrumbs = false;

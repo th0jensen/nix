@@ -14,6 +14,7 @@
     enableFishIntegration = true;
 
     settings = {
+      font-size = if pkgs.stdenv.isDarwin then 13 else 10;
       confirm-close-surface = false;
       quit-after-last-window-closed = true;
       shell-integration = "fish";
@@ -21,18 +22,24 @@
       clipboard-write = "allow";
       window-vsync = true;
       window-colorspace = "display-p3";
-      window-padding-x = 0;
-      window-padding-y = 0;
+      window-padding-x = 5;
+      window-padding-y = 5;
       theme = "gruber-darker";
       selection-invert-fg-bg = true;
+      cursor-style = "block";
       cursor-style-blink = false;
       font-thicken = true;
+
+      # Darwin
       macos-non-native-fullscreen = true;
       macos-option-as-alt = "left";
       macos-icon = "custom-style";
       macos-icon-frame = "beige";
       macos-icon-ghost-color = "ffdd33";
       macos-icon-screen-color = "191919";
+
+      # Linux
+      gtk-adwaita = false;
     };
   };
 }

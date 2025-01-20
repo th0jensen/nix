@@ -17,9 +17,18 @@
       url = "github:zhaofengli-wip/nix-homebrew";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    duke3d-flake = {
+      url = "path:/home/thomas/nix/modules/duke3d.nix";
+    };
   };
 
-  outputs = inputs@{ nixpkgs, nix-darwin, nix-homebrew, home-manager, ... }: {
+  outputs = inputs@{
+    nixpkgs, nix-darwin, nix-homebrew, home-manager, nur, duke3d-flake, ...
+  }: {
     darwinConfigurations = {
       macbook-pro = nix-darwin.lib.darwinSystem {
         system = "aarch64-darwin";
@@ -50,12 +59,26 @@
         modules = [
           ./hosts/common.nix
           ./hosts/msi-prestige/default.nix
+          {
+            nixpkgs.overlays = [
+              nur.overlay
+              (final: prev: {
+                nurPkgs = import nur {
+                  nurpkgs = final;
+                  pkgs = prev;
+                };
+              })
+            ];
+          }
           home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.backupFileExtension = "backup";
             home-manager.extraSpecialArgs = { inherit inputs; };
             home-manager.users.thomas = import ./users/thomas/nixos.nix;
+          }
+          {
+            environment.systemPackages = [duke3d-flake.packages.x86_64-linux.duke3d];
           }
         ];
       };

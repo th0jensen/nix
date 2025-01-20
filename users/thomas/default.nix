@@ -10,6 +10,7 @@
   home.packages = with pkgs; [
     cmatrix
     discord
+    dosbox-staging
     nixd
     rustup
   ];
