@@ -1,52 +1,56 @@
-{
-  description = "Duke3D packaged with DOSBox Staging";
+{ pkgs, lib, ... }:
 
-  inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    dosbox-staging.url = "github:dosbox-staging/dosbox-staging";
+let
+  duke3d = pkgs.stdenv.mkDerivation {
+    pname = "duke3d";
+    version = "1.0";
+
+    src = pkgs.fetchzip {
+      url = "https://archive.org/download/DUKE3D_DOS/DUKE3D.zip";
+      sha256 = "sha256-0hxg4p06q91q94701yfnjdpr88720iwmk0niw4rj793wa9x72zjc";
+    };
+
+    installPhase = ''
+      mkdir -p $out/bin
+      cp -r $src/* $out/bin/
+      ln -s $out/bin/DUKE3D.EXE $out/bin/duke3d
+      ln -s $out/bin/SETUP.EXE $out/bin/setup
+    '';
+
+    nativeBuildInputs = [ pkgs.dosbox-staging ];
   };
 
-  outputs = { self, nixpkgs, dosbox-staging }: {
-    packages.x86_64-linux = let
-      duke3d = nixpkgs.pkgs.stdenv.mkDerivation {
-        pname = "duke3d";
-        version = "1.0";
+  createDesktopEntry = { name, exec, icon, type, categories }:
+      ''
+        [Desktop Entry]
+        Name=${name}
+        Exec=${exec}
+        Icon=${icon}
+        Type=${type}
+        Categories=${lib.strings.concatStringsSep ";" categories};
+      '';
 
-        src = nixpkgs.pkgs.fetchzip {
-          url = "https://archive.org/download/DUKE3D_DOS/DUKE3D.zip";
-          sha256 = "sha256-0hxg4p06q91q94701yfnjdpr88720iwmk0niw4rj793wa9x72zjc";
-        };
-
-        installPhase = ''
-          mkdir -p $out/bin
-          cp -r $src/* $out/bin/
-          ln -s $out/bin/DUKE3D.EXE $out/bin/duke3d
-          ln -s $out/bin/SETUP.EXE $out/bin/setup
-        '';
-
-        nativeBuildInputs = [ dosbox-staging ];
+    desktopEntries = {
+      duke3d = createDesktopEntry {
+        name = "Duke3D";
+        exec = "dosbox ${duke3d}/bin/DUKE3D.EXE";
+        icon = "duke3d";
+        type = "Application";
+        categories = [ "Game" ];
       };
-    in {
-      duke3d = duke3d;
 
-      # Desktop entries
-      desktopEntries = {
-        duke3d = {
-          name = "Duke3D";
-          exec = "${duke3d}/bin/DUKE3D.EXE";
-          icon = "duke3d";
-          type = "Application";
-          categories = [ "Game" ];
-        };
-
-        setup = {
-          name = "Duke3D Setup";
-          exec = "${duke3d}/bin/SETUP.EXE";
-          icon = "duke3d";
-          type = "Application";
-          categories = [ "Game" ];
-        };
+      setup = createDesktopEntry {
+        name = "Duke3D Setup";
+        exec = "dosbox ${duke3d}/bin/SETUP.EXE";
+        icon = "duke3d";
+        type = "Application";
+        categories = [ "Game" ];
       };
     };
-  };
+in
+{
+  inherit duke3d;
+
+  home.file."duke3d.desktop".text = desktopEntries.duke3d;
+  home.file."duke3d-setup.desktop".text = desktopEntries.setup;
 }
