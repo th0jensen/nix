@@ -17,8 +17,8 @@
       showhidden = true;
       show-recents = false;
       persistent-apps = [
-        "${pkgs.arc-browser}/Applications/Arc.app"
-        "/Applications/Zed Preview.app"
+        "/Application/Zen Browser.app"
+        "/Applications/Zed.app"
         "/Applications/Canary Mail.app"
         "/System/Applications/Messages.app"
       ];

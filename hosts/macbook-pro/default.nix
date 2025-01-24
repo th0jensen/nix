@@ -48,7 +48,8 @@
       "transmission"
       "xcodes"
       "zandronum"
-      "zed@preview"
+      "zed"
+      "zen-browser"
     ];
     taps = [
       "nikitabobko/tap"

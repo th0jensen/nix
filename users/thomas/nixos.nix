@@ -41,6 +41,7 @@ in
     ioquake3
     duke3d
     thunderbird-latest-unwrapped
+    inputs.zen-browser.packages."${system}".default
   ];
 
   home.file = {
