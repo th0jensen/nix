@@ -38,9 +38,9 @@ in
 
   home.packages = with pkgs; [
     freeciv
-    inputs.zen-browser.packages.x86_64-linux.default
     ioquake3
     duke3d
+    thunderbird-latest-unwrapped
   ];
 
   home.file = {

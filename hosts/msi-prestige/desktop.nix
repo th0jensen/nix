@@ -110,34 +110,48 @@
   nixpkgs.overlays = [
     (self: super: {
       chicago95-theme = super.fetchFromGitHub {
-        owner = "th0jensen";
+        owner = "grassmunk";
         repo = "Chicago95";
         rev = "master";
-        sha256 = "sha256-lAIZyQlMhJ+fAr7WDpCu/iZyatk6kdWdSy1LseWvYFk=";
+        sha256 = "sha256-poj8dHzv9zJGD7hvMzG+7kJrTB+zkw99AnqPG96vmkM=";
       };
     })
   ];
 
   system.activationScripts.installChicago95 = ''
-    mkdir -p /home/thomas/.themes
-    mkdir -p /home/thomas/.icons
-    mkdir -p /usr/share/lightdm-webkit/themes
-    mkdir -p /home/thomas/.config/gtk-3.0
+      export PATH=${pkgs.p7zip}/bin:$PATH
 
-    cp -r ${pkgs.chicago95-theme}/Theme/Chicago95 /home/thomas/.themes/
-    cp -r ${pkgs.chicago95-theme}/Theme/Chicago95 /usr/share/themes/
-    cp -r ${pkgs.chicago95-theme}/Icons/Chicago95 /home/thomas/.icons/
-    cp -r ${pkgs.chicago95-theme}/Icons/Chicago95 /usr/share/icons/
+      TMPDIR=$(mktemp -d)
+      cd $TMPDIR
 
-    cp -r ${pkgs.chicago95-theme}/Cursors /home/thomas/.icons
-    cp ${pkgs.chicago95-theme}/Fonts/vga_font/LessPerfectDOSVGA.ttf /usr/share/fonts
-    cp ${pkgs.chicago95-theme}/Extras/override/gtk-3.24/gtk.css \
-    /home/thomas/.config/gtk-3.0/
+      mkdir -p /home/thomas/.themes
+      mkdir -p /home/thomas/.icons
+      mkdir -p /usr/share/lightdm-webkit/themes
+      mkdir -p /home/thomas/.config/gtk-3.0
+      mkdir -p /usr/share/libreoffice/share/config/
 
-    chown -R thomas:users /home/thomas/.themes
-    chown -R thomas:users /home/thomas/.icons
-    chown -R lightdm:lightdm /usr/share/lightdm-webkit/themes/Chicago95
-    chmod -R 755 /usr/share/lightdm-webkit/themes/Chicago95
+      cp -r ${pkgs.chicago95-theme}/Extras/libreoffice-chicago95-iconset .
+      mkdir -p libreoffice-chicago95-iconset/Chicago95-theme/iconsets
+      cd libreoffice-chicago95-iconset
+      ./build.sh
+      cd ..
+
+      cp -r ${pkgs.chicago95-theme}/Theme/Chicago95 /home/thomas/.themes/
+      cp -r ${pkgs.chicago95-theme}/Theme/Chicago95 /usr/share/themes/
+      cp -r ${pkgs.chicago95-theme}/Icons/Chicago95 /home/thomas/.icons/
+      cp -r ${pkgs.chicago95-theme}/Icons/Chicago95 /usr/share/icons/
+      cp -p libreoffice-chicago95-iconset/Chicago95-theme/iconsets/images_chicago95.zip /usr/share/libreoffice/share/config/
+
+      cp -r ${pkgs.chicago95-theme}/Cursors /home/thomas/.icons
+      cp ${pkgs.chicago95-theme}/Fonts/vga_font/LessPerfectDOSVGA.ttf /usr/share/fonts
+      cp ${pkgs.chicago95-theme}/Extras/override/gtk-3.24/gtk.css /home/thomas/.config/gtk-3.0/
+
+      chown -R thomas:users /home/thomas/.themes
+      chown -R thomas:users /home/thomas/.icons
+      chown -R lightdm:lightdm /usr/share/lightdm-webkit/themes/Chicago95
+      chmod -R 755 /usr/share/lightdm-webkit/themes/Chicago95
+
+      rm -rf $TMPDIR
   '';
 
   environment.systemPackages = with pkgs; [
@@ -150,6 +164,7 @@
     gtk-engine-murrine
     gtk3
     gtk4
+    libreoffice
     lxappearance
     pamixer
     pulseaudio
@@ -165,5 +180,6 @@
     xorg.xinit
     xorg.xrandr
     xsel
+    p7zip
   ];
 }

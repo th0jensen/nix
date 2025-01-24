@@ -43,6 +43,7 @@
           home-manager.darwinModules.home-manager {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = { inherit inputs; system = "aarch64-darwin"; };
             home-manager.users.thomas = import ./users/thomas/darwin.nix;
           }
         ];
@@ -58,7 +59,7 @@
           ./hosts/msi-prestige/default.nix
           {
             nixpkgs.overlays = [
-              nur.overlay
+              nur.overlays.default
               (final: prev: {
                 nurPkgs = import nur {
                   nurpkgs = final;
@@ -71,7 +72,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.backupFileExtension = "backup";
-            home-manager.extraSpecialArgs = { inherit inputs; };
+            home-manager.extraSpecialArgs = { inherit inputs; system = "x86_64-linux"; };
             home-manager.users.thomas = import ./users/thomas/nixos.nix;
           }
         ];

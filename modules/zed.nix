@@ -20,7 +20,7 @@
       };
       bottom_dock_layout = "left_aligned";
       vim_mode = false;
-      theme = "Gruber Darker - Minimal";
+      theme = "Gruber Darker";
       ui_font_family = "JetBrainsMono Nerd Font";
       ui_font_size = if pkgs.stdenv.isDarwin then 16 else 13;
       buffer_font_family = "JetBrainsMono Nerd Font";

@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, inputs, system, ... }: {
   imports = [
     ../../modules/fish.nix
     ../../modules/ghostty.nix
@@ -13,6 +13,8 @@
     dosbox-staging
     nixd
     rustup
+
+    inputs.zen-browser.packages."${system}".default
   ];
 
   home.sessionVariables = {
