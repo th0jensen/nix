@@ -10,6 +10,7 @@
   home.packages = with pkgs; [
     arc-browser
     caddy
+    dosbox-staging
     iina
     zoom-us
   ];

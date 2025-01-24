@@ -24,7 +24,7 @@
       window-colorspace = "display-p3";
       window-padding-x = 5;
       window-padding-y = 5;
-      theme = "gruber-darker";
+      theme = "PaulMillr";
       selection-invert-fg-bg = true;
       cursor-style = "block";
       cursor-style-blink = false;

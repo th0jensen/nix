@@ -41,6 +41,7 @@
       "jordanbaird-ice"
       "logi-options+"
       "minecraft"
+      "ollama"
       "philips-hue-sync"
       "raycast"
       "tailscale"
