@@ -44,6 +44,7 @@
     enable = true;
     package = pkgs.ollama.override {
       acceleration = "cuda";
+      cudaSupport = true;
     };
   };
 
