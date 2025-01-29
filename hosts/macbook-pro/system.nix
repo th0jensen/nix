@@ -17,10 +17,11 @@
       showhidden = true;
       show-recents = false;
       persistent-apps = [
-        "/Application/Zen Browser.app"
+        "/Applications/Ghostty.app"
+        "/Applications/Zen Browser.app"
         "/Applications/Zed.app"
-        "/Applications/Canary Mail.app"
-        "/System/Applications/Messages.app"
+        "/Applications/Notion.app"
+        "/Applications/Notion Calendar.app"
       ];
       persistent-others = [
         "/Users/thomas/Downloads"

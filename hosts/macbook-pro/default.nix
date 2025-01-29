@@ -1,7 +1,6 @@
 { pkgs, ... }: {
   imports = [
     ../../modules/aerospace.nix
-
     ./system.nix
   ];
 
@@ -41,6 +40,8 @@
       "jordanbaird-ice"
       "logi-options+"
       "minecraft"
+      "notion"
+      "notion-calendar"
       "ollama"
       "philips-hue-sync"
       "raycast"

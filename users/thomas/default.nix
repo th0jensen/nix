@@ -4,6 +4,7 @@
     ../../modules/ghostty.nix
     ../../modules/helix.nix
     ../../modules/starship.nix
+    ../../modules/zellij.nix
     ../../modules/zed.nix
   ];
 

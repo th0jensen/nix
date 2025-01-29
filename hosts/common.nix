@@ -29,6 +29,7 @@
     unrar
     unzip
     wget
+    zoxide  # Added zoxide package
   ];
 
   fonts.packages = with pkgs; [
