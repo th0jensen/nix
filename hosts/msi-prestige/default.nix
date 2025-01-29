@@ -39,13 +39,22 @@
   virtualisation.docker.enable = true;
   hardware.nvidia-container-toolkit.enable = true;
 
+  # Ollama
   services.ollama = {
     enable = true;
   };
 
   systemd.services.ollama.environment = {
     "CUDA_VISIBLE_DEVICES" = "0"; # Adjust based on your GPU index
-    "LD_LIBRARY_PATH" = "/run/opengl-driver/lib:/run/opengl-driver-32/lib";
+    "LD_LIBRARY_PATH" = "/run/opengl-driver/lib:/run/opengl-driver-32/lib:/run/current-system/sw/lib";
+    "NVIDIA_DRIVER_CAPABILITIES" = "compute,utility";
+    "NVIDIA_VISIBLE_DEVICES" = "all";
+  };
+
+  systemd.services.ollama.serviceConfig = {
+    SupplementaryGroups = [ "render" "video" ];
+    RuntimeDirectory = "ollama";
+    RuntimeDirectoryMode = "0755";
   };
 
   services.flatpak.enable = true;
