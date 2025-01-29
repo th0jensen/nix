@@ -42,28 +42,24 @@
   # Ollama
   services.ollama = {
     enable = true;
-    package = pkgs.ollama.override {
-      acceleration = "cuda";
-      cudaSupport = true;
+    package = pkgs.ollama;
+    environmentVariables = {
+      "CUDA_VISIBLE_DEVICES" = "0"; # Adjust based on your GPU index
+      "LD_LIBRARY_PATH" = "/run/opengl-driver/lib:/run/opengl-driver-32/lib:/run/current-system/sw/lib";
+      "NVIDIA_DRIVER_CAPABILITIES" = "compute,utility";
+      "NVIDIA_VISIBLE_DEVICES" = "all";
+      "CUDA_HOME" = "/run/opengl-driver";
+      "CUDA_PATH" = "/run/opengl-driver";
+      "CUDA_CACHE_PATH" = "/var/lib/ollama/.cache/cuda";
     };
   };
 
-  systemd.services.ollama.environment = {
-    "CUDA_VISIBLE_DEVICES" = "0"; # Adjust based on your GPU index
-    "LD_LIBRARY_PATH" = "/run/opengl-driver/lib:/run/opengl-driver-32/lib:/run/current-system/sw/lib";
-    "NVIDIA_DRIVER_CAPABILITIES" = "compute,utility";
-    "NVIDIA_VISIBLE_DEVICES" = "all";
-    "CUDA_HOME" = "/run/opengl-driver";
-    "CUDA_PATH" = "/run/opengl-driver";
-    "CUDA_CACHE_PATH" = "/var/lib/ollama/.cache/cuda";
-  };
-
-  systemd.services.ollama.serviceConfig = {
-    SupplementaryGroups = [ "render" "video" ];
-    RuntimeDirectory = "ollama";
-    RuntimeDirectoryMode = "0755";
-    Environment = [ "OLLAMA_HOST=0.0.0.0" ];
-  };
+  # systemd.services.ollama.serviceConfig = {
+  #   SupplementaryGroups = [ "render" "video" ];
+  #   RuntimeDirectory = "ollama";
+  #   RuntimeDirectoryMode = "0755";
+  #   Environment = [ "OLLAMA_HOST=0.0.0.0" ];
+  # };
 
   services.flatpak.enable = true;
 
