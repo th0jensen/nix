@@ -12,7 +12,7 @@
       "sd_mod"
       "rtsx_pci_sdmmc"
     ];
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_6_1;
     initrd.kernelModules = [ ];
     kernelModules = [ "kvm-intel" "iwlwifi" ];
     extraModulePackages = [ ];

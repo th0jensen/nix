@@ -29,11 +29,15 @@
   };
 
   services.xserver = {
+    excludePackages = [ pkgs.xterm ];
     enable = true;
 
     desktopManager = {
       xterm.enable = false;
-      xfce.enable = true;
+      xfce = {
+        enable = true;
+        enableXfwm = true;
+      };
     };
 
     displayManager.lightdm = {

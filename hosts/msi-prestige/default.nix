@@ -40,6 +40,13 @@
   virtualisation.docker.enable = true;
   hardware.nvidia-container-toolkit.enable = true;
 
+  services.ollama = {
+    enable = true;
+    loadModels = [
+      "deepseek-r1:32b"
+    ];
+  };
+
   services.flatpak.enable = true;
 
   # Tailscale configuration
