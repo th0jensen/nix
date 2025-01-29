@@ -41,9 +41,11 @@
 
   services.ollama = {
     enable = true;
-    loadModels = [
-      "deepseek-r1:32b"
-    ];
+  };
+
+  systemd.services.ollama.environment = {
+    "CUDA_VISIBLE_DEVICES" = "0"; # Adjust based on your GPU index
+    "LD_LIBRARY_PATH" = "/run/opengl-driver/lib:/run/opengl-driver-32/lib";
   };
 
   services.flatpak.enable = true;
