@@ -42,7 +42,6 @@
   # Ollama
   services.ollama = {
     enable = true;
-    extraArgs = [ "--gpu" ];
   };
 
   systemd.services.ollama.environment = {
