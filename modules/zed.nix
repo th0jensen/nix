@@ -15,6 +15,18 @@
     extensions = [ "gruber-darker" ];
 
     userSettings = {
+      ssh_connections = [
+        {
+          host = "prestige";
+          projects = [
+            {
+                paths = [
+                  "~/nix"
+                ];
+            }
+          ];
+        }
+      ];
       active_pane_modifiers = {
         inactive_opacity = 0.85;
       };
@@ -28,7 +40,9 @@
       unstable.ui_density = "comfortable";
       terminal = {
         dock = "bottom";
-        shell = "system";
+        shell = {
+            program = "${pkgs.fish}/bin/fish";
+        };
         env = {
           TERM = "xterm-ghostty";
         };

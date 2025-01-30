@@ -39,27 +39,35 @@
   virtualisation.docker.enable = true;
   hardware.nvidia-container-toolkit.enable = true;
 
-  # Ollama
-  services.ollama = {
+  # LocalAI - Alternative to Ollama with CUDA support
+  services.localai = {
     enable = true;
-    package = pkgs.ollama;
-    environmentVariables = {
-      "CUDA_VISIBLE_DEVICES" = "0"; # Adjust based on your GPU index
-      "LD_LIBRARY_PATH" = "/run/opengl-driver/lib:/run/opengl-driver-32/lib:/run/current-system/sw/lib";
-      "NVIDIA_DRIVER_CAPABILITIES" = "compute,utility";
-      "NVIDIA_VISIBLE_DEVICES" = "all";
-      "CUDA_HOME" = "/run/opengl-driver";
-      "CUDA_PATH" = "/run/opengl-driver";
-      "CUDA_CACHE_PATH" = "/var/lib/ollama/.cache/cuda";
+    package = pkgs.localai;
+    settings = {
+      debug = false;
+      threads = 4;
+      galleries = [ "github:go-skynet/model-gallery" ];
+      models-path = "/var/lib/localai";
+      api-key = "";
+      address = "0.0.0.0";
+      port = 8080;
+      context-size = 2048;
+      cuda = {
+        enable = true;
+        batch-size = 512;
+        layers = 35;
+        split-vram = false;
+      };
     };
+    # environmentVariables = {
+    #   "CUDA_VISIBLE_DEVICES" = "0";
+    #   "LD_LIBRARY_PATH" = "/run/opengl-driver/lib:/run/opengl-driver-32/lib:/run/current-system/sw/lib";
+    #   "NVIDIA_DRIVER_CAPABILITIES" = "compute,utility";
+    #   "NVIDIA_VISIBLE_DEVICES" = "all";
+    #   "CUDA_HOME" = "/run/opengl-driver";
+    #   "CUDA_PATH" = "/run/opengl-driver";
+    # };
   };
-
-  # systemd.services.ollama.serviceConfig = {
-  #   SupplementaryGroups = [ "render" "video" ];
-  #   RuntimeDirectory = "ollama";
-  #   RuntimeDirectoryMode = "0755";
-  #   Environment = [ "OLLAMA_HOST=0.0.0.0" ];
-  # };
 
   services.flatpak.enable = true;
 
@@ -105,7 +113,7 @@
     swt
     nss_latest
     ghostty
-
+    localai
   ];
 
 
