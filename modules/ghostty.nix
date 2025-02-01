@@ -34,7 +34,11 @@
       font-thicken = true;
 
       # Linux
-      window-decoration = "auto";
+      window-decoration = "server";
+      gtk-titlebar = false;
+      gtk-adwaita = false;
+      gtk-tabs-location = "hidden";
+      gtk-single-instance = true;
     };
   };
 }
