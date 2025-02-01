@@ -33,11 +33,6 @@
       cursor-style-blink = false;
       font-thicken = true;
 
-      # Darwin
-      macos-non-native-fullscreen = true;
-      macos-window-shadow = false;
-      macos-option-as-alt = "left";
-
       # Linux
       window-decoration = true;
       gtk-titlebar = false;

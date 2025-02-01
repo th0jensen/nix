@@ -39,29 +39,26 @@
   virtualisation.docker.enable = true;
   hardware.nvidia-container-toolkit.enable = true;
 
-  services.flatpak.enable = true;
-
-  # Tailscale configuration
-  services.tailscale = {
-    enable = true;
-    useRoutingFeatures = "server";
-  };
-
-  services.xrdp = {
-    enable = true;
-    defaultWindowManager = "startxfce4";
-    openFirewall = true;
-  };
-
-  # Other services
+  # System Services
   services = {
     openssh.enable = true;
     acpid.enable = true;
     thermald.enable = true;
     blueman.enable = true;
     printing.enable = true;
+    flatpak.enable = true;
 
-    # Enable auto-mounting of USB drives
+    tailscale = {
+      enable = true;
+      useRoutingFeatures = "server";
+    };
+
+    xrdp = {
+      enable = true;
+      defaultWindowManager = "startxfce4";
+      openFirewall = true;
+    };
+
     udisks2.enable = true;
     gvfs.enable = true;
   };

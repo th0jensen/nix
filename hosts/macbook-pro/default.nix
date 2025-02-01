@@ -35,7 +35,6 @@
       "cursor"
       "docker"
       "ghostty"
-      "hammerspoon"
       "insomnia"
       "jetbrains-toolbox"
       "jordanbaird-ice"

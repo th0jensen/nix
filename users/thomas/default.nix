@@ -18,9 +18,9 @@
   ];
 
   home.sessionVariables = {
-      EDITOR = "hx";
-      VISUAL = "hx";
-    };
+    EDITOR = "hx";
+    VISUAL = "hx";
+  };
 
   programs.git = {
     userName = "Thomas Jensen";
