@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   imports = [
-    ../../modules/aerospace.nix
     ./system.nix
+    ../../modules/aerospace.nix
   ];
 
   system.stateVersion = 4;
@@ -35,6 +35,7 @@
       "cursor"
       "docker"
       "ghostty"
+      "hammerspoon"
       "insomnia"
       "jetbrains-toolbox"
       "jordanbaird-ice"

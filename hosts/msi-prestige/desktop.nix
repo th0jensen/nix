@@ -32,6 +32,9 @@
     excludePackages = [ pkgs.xterm ];
     enable = true;
 
+    # Enable XRDP for remote desktop access
+    displayManager.xserverArgs = [ "-nolisten" "tcp" ];
+
     desktopManager = {
       xterm.enable = false;
       xfce = {

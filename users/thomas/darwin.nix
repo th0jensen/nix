@@ -1,6 +1,7 @@
 { pkgs, ... }: {
   imports = [
     ./default.nix
+    ../../modules/hammerspoon.nix
   ];
 
   home.username = "thomas";
@@ -9,7 +10,6 @@
 
   home.packages = with pkgs; [
     caddy
-    dosbox-staging
     iina
     zoom-us
   ];

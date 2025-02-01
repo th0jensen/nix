@@ -22,6 +22,7 @@
     git
     gitu
     helix
+    lazydocker
     ripgrep
     ripgrep-all
     starship

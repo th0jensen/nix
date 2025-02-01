@@ -24,6 +24,7 @@ in {
       fish_add_path /run/wrappers/bin
       fish_add_path /etc/profiles/per-user/thomas/bin
       fish_add_path $HOME/.cargo/bin
+      fish_add_path $HOME/.orbstack/bin
 
       set -U fish_greeting
     '';
@@ -45,6 +46,10 @@ in {
       fzf --fish | source
       starship init fish | source
       zoxide init fish | source
+
+      if set -q GHOSTTY_RESOURCES_DIR
+          source "$GHOSTTY_RESOURCES_DIR/shell-integration/fish/vendor_conf.d/ghostty-shell-integration.fish"
+      end
     '';
   };
 }
