@@ -2,7 +2,6 @@
   imports = [
     ./desktop.nix
     ./hardware.nix
-    ../../modules/sunshine.nix
   ];
 
   system.stateVersion = "23.11";
