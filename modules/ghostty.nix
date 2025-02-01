@@ -10,7 +10,7 @@
       echo "exec /Applications/Ghostty.app/Contents/MacOS/ghostty \"\$@\"" >> $out/bin/ghostty
       chmod +x $out/bin/ghostty
     ''
-    else pkgs.zed-editor;
+    else pkgs.ghostty;
     enableFishIntegration = true;
 
     settings = {

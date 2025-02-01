@@ -14,6 +14,7 @@
     dosbox-staging
     nixd
     rustup
+    zed-editor
   ];
 
   home.sessionVariables = {

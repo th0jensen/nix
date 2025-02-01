@@ -1,6 +1,4 @@
-{ config, lib, pkgs, ... }:
-
-{
+{ config, lib, pkgs, ... }: {
   home.file.".hammerspoon/init.lua".text = ''
     -- Initialize Hammerspoon
     hs.window.animationDuration = 0

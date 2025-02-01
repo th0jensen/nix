@@ -50,7 +50,6 @@
       "transmission"
       "xcodes"
       "zandronum"
-      "zed"
       "zen-browser"
     ];
     taps = [
@@ -59,6 +58,7 @@
     masApps = {
       "Dashlane" = 517914548;
       "Telegram" = 747648890;
+      "Windows App" = 1295203466;
     };
   };
 }

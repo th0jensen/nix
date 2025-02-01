@@ -19,7 +19,7 @@
       persistent-apps = [
         "/Applications/Ghostty.app"
         "/Applications/Zen Browser.app"
-        "/Applications/Zed.app"
+        "${pkgs.zed-editor}/Applications/Zed.app"
         "/Applications/Notion.app"
         "/Applications/Notion Calendar.app"
       ];
@@ -65,13 +65,6 @@
       Dragging = true;
       TrackpadRightClick = true;
       TrackpadThreeFingerDrag = true;
-    };
-
-    # Custom defaults
-    CustomUserPreferences = {
-      "company.thebrowser.Browser" = {
-        currentAppIconName = "flutedGlass";
-      };
     };
   };
 

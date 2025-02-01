@@ -30,6 +30,8 @@ in {
     '';
 
     shellAliases = {
+      kali = "orb -m kali -u thomas";
+      prestige = "ssh thomas@prestige";
       gitignore = "gitignore_edit";
       license = "create_license";
       dev_server = "connect_server";

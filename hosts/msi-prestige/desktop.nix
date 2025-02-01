@@ -61,13 +61,6 @@
         '';
       };
     };
-    # greeters.gtk.enable = false;
-    # greeter = lib.mkForce {
-    #   enable = true;
-    #   name = "webkit2-greeter";
-    #   package = pkgs.nur.repos.mloeper.lightdm-webkit2-greeter;
-    # };
-    # extraSeatDefaults = lib.mkForce "greeter-session=webkit2-greeter";
 
     xkb.layout = "us";
   };
@@ -126,28 +119,15 @@
   ];
 
   system.activationScripts.installChicago95 = ''
-      export PATH=${pkgs.p7zip}/bin:$PATH
-
-      TMPDIR=$(mktemp -d)
-      cd $TMPDIR
-
       mkdir -p /home/thomas/.themes
       mkdir -p /home/thomas/.icons
       mkdir -p /usr/share/lightdm-webkit/themes
       mkdir -p /home/thomas/.config/gtk-3.0
-      mkdir -p /usr/share/libreoffice/share/config/
-
-      cp -r ${pkgs.chicago95-theme}/Extras/libreoffice-chicago95-iconset .
-      mkdir -p libreoffice-chicago95-iconset/Chicago95-theme/iconsets
-      cd libreoffice-chicago95-iconset
-      ./build.sh
-      cd ..
 
       cp -r ${pkgs.chicago95-theme}/Theme/Chicago95 /home/thomas/.themes/
       cp -r ${pkgs.chicago95-theme}/Theme/Chicago95 /usr/share/themes/
       cp -r ${pkgs.chicago95-theme}/Icons/Chicago95 /home/thomas/.icons/
       cp -r ${pkgs.chicago95-theme}/Icons/Chicago95 /usr/share/icons/
-      cp -p libreoffice-chicago95-iconset/Chicago95-theme/iconsets/images_chicago95.zip /usr/share/libreoffice/share/config/
 
       cp -r ${pkgs.chicago95-theme}/Cursors /home/thomas/.icons
       cp ${pkgs.chicago95-theme}/Fonts/vga_font/LessPerfectDOSVGA.ttf /usr/share/fonts
@@ -157,8 +137,6 @@
       chown -R thomas:users /home/thomas/.icons
       chown -R lightdm:lightdm /usr/share/lightdm-webkit/themes/Chicago95
       chmod -R 755 /usr/share/lightdm-webkit/themes/Chicago95
-
-      rm -rf $TMPDIR
   '';
 
   environment.systemPackages = with pkgs; [
