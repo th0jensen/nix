@@ -7,7 +7,7 @@
     displayManager = {
       lightdm.enable = true;
       xserverArgs = [ "-nolisten" "tcp" ];
-    }
+    };
 
     desktopManager = {
       xterm.enable = false;

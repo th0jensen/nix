@@ -5,7 +5,7 @@
   hardware.firmware = [ pkgs.linux-firmware ];
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_6_7;
+    kernelPackages = pkgs.linuxPackages_latest;
     kernelModules = [ "kvm-intel" "iwlwifi" ];
     kernel.sysctl = {"vm.swappiness" = 10; };
     kernelParams = [ "intel_pstate=active" "processor.ignore_ppc=1" ];
