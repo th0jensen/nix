@@ -8,14 +8,19 @@
     ../../modules/zed.nix
   ];
 
+  home.stateVersion = "23.11";
+
   home.packages = with pkgs; [
     cmatrix
     discord
     dosbox-staging
     nixd
     rustup
+    thunderbird-latest-unwrapped
     zed-editor
   ];
+
+  # TODO: Add Thunderbird module with configuration
 
   home.sessionVariables = {
     EDITOR = "hx";

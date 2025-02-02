@@ -5,27 +5,37 @@
   hardware.firmware = [ pkgs.linux-firmware ];
 
   boot = {
-    initrd.availableKernelModules = [
-      "xhci_pci"
-      "nvme"
-      "usb_storage"
-      "sd_mod"
-      "rtsx_pci_sdmmc"
-    ];
-    kernelPackages = pkgs.linuxPackages_6_1;
-    initrd.kernelModules = [ ];
+    kernelPackages = pkgs.linuxPackages_6_7;
     kernelModules = [ "kvm-intel" "iwlwifi" ];
+    kernel.sysctl = {"vm.swappiness" = 10; };
+    kernelParams = [ "intel_pstate=active" "processor.ignore_ppc=1" ];
+    kernelPatches = [
+        {
+          name = "Rust Support";
+          patch = null;
+          features = {
+            rust = true;
+          };
+        }
+    ];
     extraModulePackages = [ ];
 
-    # For better SSD support
-    kernel.sysctl = {
-      "vm.swappiness" = 10;
+    initrd = {
+      verbose = false;
+      kernelModules = [ ];
+      availableKernelModules = [
+        "xhci_pci"
+        "nvme"
+        "usb_storage"
+        "sd_mod"
+        "rtsx_pci_sdmmc"
+      ];
     };
 
-    kernelParams = [
-      "intel_pstate=active"
-      "processor.ignore_ppc=1"
-    ];
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
   };
 
   # Disks
@@ -107,7 +117,7 @@
     };
 
     nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.latest;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
   # Enable virtualisation on Nvidia GPU

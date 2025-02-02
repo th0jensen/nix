@@ -24,8 +24,6 @@
       clipboard-read = "allow";
       clipboard-write = "allow";
       window-vsync = true;
-      window-padding-x = 5;
-      window-padding-y = 5;
       window-theme = "system";
       theme = "gruber-darker";
       selection-invert-fg-bg = true;

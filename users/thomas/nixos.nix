@@ -5,12 +5,10 @@
 
   home.username = "thomas";
   home.homeDirectory = "/home/thomas";
-  home.stateVersion = "23.11";
 
   home.packages = with pkgs; [
     freeciv
     ioquake3
-    thunderbird-latest-unwrapped
     inputs.zen-browser.packages."${system}".default
   ];
 

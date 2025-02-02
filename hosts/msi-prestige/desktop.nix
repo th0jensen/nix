@@ -1,39 +1,13 @@
 { pkgs, lib, ... }: {
-  boot = {
-    plymouth = {
-      enable = true;
-      theme = "Chicago95";
-      themePackages = [
-        (pkgs.runCommand "chicago95-plymouth" {
-          meta.mainProgram = "Chicago95";
-        } ''
-          mkdir -p $out/share/plymouth/themes/
-          cp -r ${pkgs.chicago95-theme}/Plymouth/Chicago95 $out/share/plymouth/themes/
-        '')
-      ];
-    };
-
-    consoleLogLevel = 0;
-    initrd.verbose = false;
-    kernelParams = [
-      "quiet"
-      "splash"
-      "boot.shell_on_fail"
-      "loglevel=3"
-      "rd.systemd.show_status=false"
-      "rd.udev.log_level=3"
-      "udev.log_priority=3"
-    ];
-
-    loader.timeout = 0;
-  };
-
   services.xserver = {
-    excludePackages = [ pkgs.xterm ];
     enable = true;
+    xkb.layout = "us";
+    excludePackages = [ pkgs.xterm ];
 
-    # Enable XRDP for remote desktop access
-    displayManager.xserverArgs = [ "-nolisten" "tcp" ];
+    displayManager = {
+      lightdm.enable = true;
+      xserverArgs = [ "-nolisten" "tcp" ];
+    }
 
     desktopManager = {
       xterm.enable = false;
@@ -42,27 +16,6 @@
         enableXfwm = true;
       };
     };
-
-    displayManager.lightdm = {
-      enable = true;
-      greeters.gtk = {
-        enable = true;
-        theme = {
-          name = "Chicago95";
-          package = (pkgs.runCommand "chicago95-lightdm" {
-            meta.mainProgram = "Chicago95";
-          } ''
-            mkdir -p $out/share/themes/
-            cp -r ${pkgs.chicago95-theme}/Lightdm/Chicago95 $out/share/themes/
-          '');
-        };
-        extraConfig = ''
-          logind-check-graphical=true
-        '';
-      };
-    };
-
-    xkb.layout = "us";
   };
 
   services.displayManager.defaultSession = "xfce";
@@ -82,22 +35,8 @@
     };
   };
 
-  environment.etc = {
-    "lightdm/lightdm-gtk-greeter.conf" = lib.mkForce {
-      text = ''
-        [greeter]
-        background=/usr/share/wallpapers/background.png
-        theme-name=Chicago95
-        icon-theme-name=Chicago95
-        cursor-theme-name=Adwaita
-        cursor-theme-size=16
-      '';
-    };
-  };
-
   environment.sessionVariables = {
     XCURSOR_SIZE = "24";
-    GTK_THEME = "Chicago95";
   };
 
   xdg.portal = {
@@ -165,6 +104,5 @@
     xorg.xinit
     xorg.xrandr
     xsel
-    p7zip
   ];
 }
