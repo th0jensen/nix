@@ -52,6 +52,11 @@
         "alt-shift-k" = "move up";
         "alt-shift-l" = "move right";
 
+        "ctrl-alt-cmd-shift-h" = "join-with left";
+        "ctrl-alt-cmd-shift-j" = "join-with down";
+        "ctrl-alt-cmd-shift-k" = "join-with up";
+        "ctrl-alt-cmd-shift-l" = "join-with right";
+
         "alt-shift-minus" = "resize smart -50";
         "alt-shift-equal" = "resize smart +50";
 
@@ -85,10 +90,6 @@
         "esc" = [ "reload-config" "mode main" ];
         "r" = [ "flatten-workspace-tree" "mode main" ];
         "backspace" = [ "close-all-windows-but-current" "mode main" ];
-        "alt-shift-h" = [ "join-with left" "mode main" ];
-        "alt-shift-j" = [ "join-with down" "mode main" ];
-        "alt-shift-k" = [ "join-with up" "mode main" ];
-        "alt-shift-l" = [ "join-with right" "mode main" ];
       };
 
       workspace-to-monitor-force-assignment = {

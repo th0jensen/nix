@@ -4,9 +4,8 @@
     ../../modules/aerospace.nix
   ];
 
-  system.stateVersion = 4;
+  system.stateVersion = 5;
   nixpkgs.hostPlatform = "aarch64-darwin";
-  services.nix-daemon.enable = true;
 
   users.users.thomas = {
     name = "thomas";
@@ -24,6 +23,7 @@
       upgrade = true;
     };
     brews = [
+      "cocoapods"
       "mas"
       "xcode-build-server"
     ];
@@ -34,6 +34,7 @@
       "chatgpt"
       "cursor"
       "docker"
+      "flutter"
       "ghostty"
       "insomnia"
       "jordanbaird-ice"
@@ -46,6 +47,7 @@
       "tailscale"
       "xcodes"
       "zandronum"
+      "zed"
       "zen-browser"
     ];
     taps = [

@@ -19,7 +19,7 @@
       persistent-apps = [
         "/Applications/Ghostty.app"
         "/Applications/Zen Browser.app"
-        "${pkgs.zed-editor}/Applications/Zed.app"
+        "/Applications/Zed.app"
         "/Applications/Notion.app"
         "/Applications/Notion Calendar.app"
       ];
@@ -45,6 +45,7 @@
       SHOWFULLNAME = true;
     };
     NSGlobalDomain = {
+      _HIHideMenuBar = true;
       AppleICUForce24HourTime = false;
       AppleInterfaceStyle = "Dark";
       ApplePressAndHoldEnabled = false;
@@ -68,8 +69,8 @@
     };
   };
 
-  system.keyboard = {
-    enableKeyMapping = true;
-    remapCapsLockToEscape = true;
-  };
+  # system.keyboard = {
+  #   enableKeyMapping = true;
+  #   remapCapsLockToEscape = true;
+  # };
 }

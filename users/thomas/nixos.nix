@@ -10,6 +10,7 @@
     freeciv
     ioquake3
     inputs.zen-browser.packages."${system}".default
+    zed-editor
   ];
 
   xdg.enable = true;

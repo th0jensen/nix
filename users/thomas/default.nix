@@ -5,7 +5,7 @@
     ../../modules/helix.nix
     ../../modules/starship.nix
     ../../modules/zellij.nix
-    ../../modules/zed.nix
+    # ../../modules/zed.nix
   ];
 
   home.stateVersion = "23.11";
@@ -17,7 +17,6 @@
     nixd
     rustup
     thunderbird-latest-unwrapped
-    zed-editor
   ];
 
   # TODO: Add Thunderbird module with configuration

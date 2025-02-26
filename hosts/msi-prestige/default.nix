@@ -86,7 +86,6 @@
 
   services.udev.extraRules = ''
     KERNEL=="uinput", SUBSYSTEM=="misc", TAG+="uaccess", GROUP="input", MODE="0660"
-    # Add X11 input device permissions
     SUBSYSTEM=="input", ACTION=="add", RUN+="${pkgs.xorg.xhost}/bin/xhost +SI:localuser:thomas"
   '';
 
