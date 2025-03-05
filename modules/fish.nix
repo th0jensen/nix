@@ -25,6 +25,7 @@ in {
       fish_add_path /etc/profiles/per-user/thomas/bin
       fish_add_path $HOME/.cargo/bin
       fish_add_path $HOME/.orbstack/bin
+      fish_add_path $HOME/.bun/bin
 
       set -U fish_greeting
     '';

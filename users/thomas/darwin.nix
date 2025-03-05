@@ -7,6 +7,7 @@
   home.homeDirectory = "/Users/thomas";
 
   home.packages = with pkgs; [
+    bun
     iina
     zoom-us
   ];
