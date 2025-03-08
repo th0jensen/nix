@@ -45,7 +45,7 @@ in {
       starship init fish | source
       zoxide init fish | source
 
-      if status is-interactive; and not set -q ZELLIJ; and not set -q SSH_CONNECTION; and test "$TERM" != "dumb"
+      if status is-interactive; and not set -q ZELLIJ; and not set -q SSH_CLIENT; and test "$TERM" != "dumb"
         if command -v zellij > /dev/null
           zellij attach --index 0 || zellij
         end
