@@ -31,17 +31,12 @@ in {
     '';
 
     shellAliases = {
-      kali = "orb -m kali -u thomas";
       prestige = "ssh thomas@prestige";
-      gitignore = "gitignore_edit";
-      license = "create_license";
-      dev_server = "connect_server";
       la = "eza -al --color=always --icons --group-directories-first";
       ls = "eza -a --color=always --icons  --group-directories-first";
       ll = "eza -l --color=always --icons --group-directories-first";
       lt = "eza -aT --color=always --icons --group-directories-first";
       "l." = "eza -a | egrep '^\\.'";
-      ta = "tmux attach";
       rg = "rga-fzf";
     };
 
@@ -53,6 +48,9 @@ in {
       if set -q GHOSTTY_RESOURCES_DIR
           source "$GHOSTTY_RESOURCES_DIR/shell-integration/fish/vendor_conf.d/ghostty-shell-integration.fish"
       end
+
+      set -x ZELLIJ_AUTO_ATTACH true
+      set -x ZELLIJ_AUTO_EXIT true
     '';
   };
 }
