@@ -1,11 +1,11 @@
 { pkgs, ... }:
 let
-nvm-fish = pkgs.fetchFromGitHub {
-  owner = "jorgebucaran";
-  repo = "nvm.fish";
-  rev = "2.2.13";
-  sha256 = "sha256-LV5NiHfg4JOrcjW7hAasUSukT43UBNXGPi1oZWPbnCA=";
-};
+  nvm-fish = pkgs.fetchFromGitHub {
+    owner = "jorgebucaran";
+    repo = "nvm.fish";
+    rev = "2.2.13";
+    sha256 = "sha256-LV5NiHfg4JOrcjW7hAasUSukT43UBNXGPi1oZWPbnCA=";
+  };
 in {
   programs.fish = {
     enable = true;
@@ -15,7 +15,6 @@ in {
     ];
 
     shellInit = ''
-      # Path configurations
       fish_add_path /opt/homebrew/sbin
       fish_add_path /opt/homebrew/bin
       fish_add_path /opt/homebrew/opt/ruby/bin
@@ -28,6 +27,7 @@ in {
       fish_add_path $HOME/.bun/bin
 
       set -U fish_greeting
+      set -x ZELLIJ_AUTO_ATTACH true
     '';
 
     shellAliases = {
@@ -45,12 +45,11 @@ in {
       starship init fish | source
       zoxide init fish | source
 
-      if set -q GHOSTTY_RESOURCES_DIR
-          source "$GHOSTTY_RESOURCES_DIR/shell-integration/fish/vendor_conf.d/ghostty-shell-integration.fish"
+      if status is-interactive; and not set -q ZELLIJ; and test "$TERM" != "dumb"
+        if command -v zellij > /dev/null
+          zellij attach --index 0 || zellij
+        end
       end
-
-      set -x ZELLIJ_AUTO_ATTACH true
-      set -x ZELLIJ_AUTO_EXIT true
     '';
   };
 }
