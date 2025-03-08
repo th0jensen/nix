@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }: {
+{ config, pkgs, ... }: {
 
   hardware.enableAllFirmware = true;
   hardware.enableRedistributableFirmware = true;

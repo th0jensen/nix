@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ ... }: {
   system.defaults = {
     alf = {
       globalstate = 1;
@@ -68,9 +68,4 @@
       TrackpadThreeFingerDrag = true;
     };
   };
-
-  # system.keyboard = {
-  #   enableKeyMapping = true;
-  #   remapCapsLockToEscape = true;
-  # };
 }
