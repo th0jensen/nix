@@ -12,30 +12,6 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  environment.systemPackages = with pkgs; [
-    bat
-    btop
-    curl
-    dust
-    eza
-    fastfetch
-    fish
-    fzf
-    gh
-    git
-    gitu
-    helix
-    lazydocker
-    ripgrep
-    ripgrep-all
-    starship
-    tmux
-    unrar
-    unzip
-    wget
-    zoxide
-  ];
-
   fonts.packages = with pkgs; [
     pkgs.nerd-fonts.jetbrains-mono
     font-awesome

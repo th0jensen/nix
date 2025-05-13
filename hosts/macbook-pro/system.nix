@@ -17,9 +17,8 @@
       showhidden = true;
       show-recents = false;
       persistent-apps = [
-        "/Applications/Ghostty.app"
-        "/Applications/Zen Browser.app"
-        "/Applications/Zed.app"
+        "/Applications/Arc.app"
+        "/Applications/Zed Preview.app"
         "/Applications/Notion.app"
         "/Applications/Notion Calendar.app"
       ];
@@ -45,7 +44,7 @@
       SHOWFULLNAME = true;
     };
     NSGlobalDomain = {
-      _HIHideMenuBar = true;
+      _HIHideMenuBar = false;
       AppleICUForce24HourTime = false;
       AppleInterfaceStyle = "Dark";
       ApplePressAndHoldEnabled = false;
@@ -54,7 +53,7 @@
     WindowManager = {
       GloballyEnabled = false;
       EnableStandardClickToShowDesktop = false;
-      StandardHideDesktopIcons = true;
+      StandardHideDesktopIcons = false;
       StandardHideWidgets = true;
     };
     menuExtraClock = {

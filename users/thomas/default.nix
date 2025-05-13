@@ -3,8 +3,6 @@
     ../../modules/fish.nix
     ../../modules/ghostty.nix
     ../../modules/helix.nix
-    ../../modules/starship.nix
-    ../../modules/zellij.nix
     # ../../modules/zed.nix
   ];
 
@@ -16,7 +14,6 @@
     dosbox-staging
     nixd
     rustup
-    thunderbird-latest-unwrapped
   ];
 
   # TODO: Add Thunderbird module with configuration

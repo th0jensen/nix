@@ -23,18 +23,20 @@
       upgrade = true;
     };
     brews = [
+      "cmake"
       "cocoapods"
       "mas"
+      "superfile"
       "xcode-build-server"
     ];
     casks = [
       "aerospace"
       "affinity-designer"
       "affinity-photo"
+      "arc"
       "chatgpt"
       "cursor"
       "docker"
-      "flutter"
       "ghostty"
       "insomnia"
       "jordanbaird-ice"
@@ -45,17 +47,16 @@
       "ollama"
       "raycast"
       "tailscale"
+      "trae"
       "xcodes"
-      "zandronum"
-      "zed"
-      "zen-browser"
+      "zed@preview"
     ];
     taps = [
       "nikitabobko/tap"
+      "homebrew/bundle"
     ];
     masApps = {
-      "Dashlane" = 517914548;
-      "Telegram" = 747648890;
+      "Amphetamine" = 937984704;
       "Windows App" = 1295203466;
     };
   };

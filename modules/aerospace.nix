@@ -13,6 +13,24 @@
       automatically-unhide-macos-hidden-apps = true;
 
       on-window-detected = [
+        # Apple Apps
+        {
+          "if".app-id = "com.apple.AppStore";
+          run = [ "layout floating" ];
+        }
+        {
+          "if".app-id = "com.apple.facetime";
+          run = [ "layout floating" ];
+        }
+        {
+          "if".app-id = "com.apple.MobileSMS";
+          run = [ "layout floating" ];
+        }
+        {
+          "if".app-id = "com.apple.Music";
+          run = [ "layout floating" ];
+        }
+        # User-installed Apps
         {
           "if".app-id = "com.mitchellh.ghostty";
           run = [ "layout floating" ];

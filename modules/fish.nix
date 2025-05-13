@@ -1,17 +1,17 @@
 { pkgs, ... }:
 let
-  nvm-fish = pkgs.fetchFromGitHub {
+  fisher = pkgs.fetchFromGitHub {
     owner = "jorgebucaran";
-    repo = "nvm.fish";
-    rev = "2.2.13";
-    sha256 = "sha256-LV5NiHfg4JOrcjW7hAasUSukT43UBNXGPi1oZWPbnCA=";
+    repo = "fisher";
+    rev = "4.4.4";
+    sha256 = "sha256-e8gIaVbuUzTwKtuMPNXBT5STeddYqQegduWBtURLT3M=";
   };
 in {
   programs.fish = {
     enable = true;
     package = pkgs.fish;
     plugins = [
-      { name = "nvm"; src = nvm-fish; }
+      { name = "fisher"; src = fisher; }
     ];
 
     shellInit = ''
@@ -25,13 +25,14 @@ in {
       fish_add_path $HOME/.cargo/bin
       fish_add_path $HOME/.orbstack/bin
       fish_add_path $HOME/.bun/bin
+      fish_add_path $HOME/.ce/bin
 
       set -U fish_greeting
-      set -x ZELLIJ_AUTO_ATTACH true
     '';
 
     shellAliases = {
       prestige = "ssh thomas@prestige";
+      cd = "z";
       la = "eza -al --color=always --icons --group-directories-first";
       ls = "eza -a --color=always --icons  --group-directories-first";
       ll = "eza -l --color=always --icons --group-directories-first";
@@ -42,14 +43,42 @@ in {
 
     interactiveShellInit = ''
       fzf --fish | source
-      starship init fish | source
       zoxide init fish | source
-
-      if status is-interactive; and not set -q ZELLIJ; and not set -q SSH_CLIENT; and test "$TERM" != "dumb"
-        if command -v zellij > /dev/null
-          zellij attach --index 0 || zellij
-        end
+      # Install Fisher if not already installed
+      if not functions -q fisher
+        curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
+      end
+      # Install Tide if not already installed
+      if not functions -q tide
+        fisher install IlanCosman/tide@v6
+      end
+      # Install nvm.fish if not already installed
+      if not functions -q nvm
+        fisher install jorgebucaran/nvm.fish@2.2.13
       end
     '';
   };
+
+  home.packages = with pkgs; [
+    bat
+    btop
+    curl
+    dust
+    eza
+    fastfetch
+    fish
+    fzf
+    gh
+    git
+    gitu
+    helix
+    lazydocker
+    ripgrep
+    ripgrep-all
+    tmux
+    unrar
+    unzip
+    wget
+    zoxide
+  ];
 }

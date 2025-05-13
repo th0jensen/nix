@@ -9,6 +9,5 @@
   home.packages = with pkgs; [
     bun
     iina
-    zoom-us
   ];
 }
