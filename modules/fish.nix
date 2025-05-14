@@ -57,7 +57,7 @@ in {
         fisher install jorgebucaran/nvm.fish@2.2.13
       end
       # Install autopair if not already installed
-      if not functions -q autopair
+      if not functions -q _autopair_uninstall
         fisher install jorgebucaran/autopair.fish
       end
     '';
