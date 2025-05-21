@@ -38,6 +38,7 @@
       "cursor"
       "docker"
       "ghostty"
+      "hammerspoon"
       "insomnia"
       "jordanbaird-ice"
       "logi-options+"

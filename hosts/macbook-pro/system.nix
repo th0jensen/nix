@@ -18,6 +18,7 @@
       show-recents = false;
       persistent-apps = [
         "/Applications/Arc.app"
+        "/Applications/Ghostty.app"
         "/Applications/Zed Preview.app"
         "/Applications/Notion.app"
         "/Applications/Notion Calendar.app"

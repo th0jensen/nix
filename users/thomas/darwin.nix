@@ -1,6 +1,7 @@
 { pkgs, ... }: {
   imports = [
     ./default.nix
+    # ../../modules/hammerspoon.nix
   ];
 
   home.username = "thomas";

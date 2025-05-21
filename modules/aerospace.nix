@@ -53,7 +53,7 @@
       };
 
       mode.main.binding = {
-        "cmd-shift-enter" = "exec-and-forget open -na /Applications/Ghostty.app";
+        "cmd-shift-enter" = "exec-and-forget osascript /Users/thomas/nix/scripts/ghostty.scpd";
 
         "alt-slash" = "layout tiles horizontal vertical";
         "alt-comma" = "layout accordion horizontal vertical";
