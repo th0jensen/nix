@@ -1,6 +1,7 @@
 { pkgs, ... }: {
   imports = [
     ./default.nix
+    ../../modules/emacs.nix
     # ../../modules/hammerspoon.nix
   ];
 

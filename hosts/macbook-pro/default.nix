@@ -51,6 +51,7 @@
       "trae"
       "xcodes"
       "zed@preview"
+      "zen"
     ];
     taps = [
       "nikitabobko/tap"

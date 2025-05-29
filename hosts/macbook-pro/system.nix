@@ -1,4 +1,5 @@
 { ... }: {
+  system.primaryUser = "thomas";
   system.defaults = {
     alf = {
       globalstate = 1;

@@ -26,6 +26,7 @@ in {
       fish_add_path $HOME/.orbstack/bin
       fish_add_path $HOME/.bun/bin
       fish_add_path $HOME/.ce/bin
+      fish_add_path $HOME/.config/emacs/bin
 
       set -U fish_greeting
     '';

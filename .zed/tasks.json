@@ -12,7 +12,7 @@
   },
   {
     "label": "󱄅  - Rebuild Flake",
-    "command": "darwin-rebuild switch --flake ~/nix",
+    "command": "sudo darwin-rebuild switch --flake ~/nix",
     "use_new_terminal": false,
     "reveal": "always",
     "reveal_target": "dock",
