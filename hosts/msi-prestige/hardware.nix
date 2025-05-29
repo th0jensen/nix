@@ -95,7 +95,7 @@
 
   # NVIDIA Configuration for PS63 Modern 8RC (GTX 1050 Max-Q)
   # Note: Removed xserver.videoDrivers for Wayland compatibility
-  
+
   hardware.nvidia = {
     modesetting.enable = true;
 
@@ -128,7 +128,10 @@
   };
 
   # Enable virtualisation on Nvidia GPU
-  hardware.nvidia-container-toolkit.enable = true;
+  hardware.nvidia-container-toolkit = {
+    enable = true;
+    suppressNvidiaDriverAssertion = true;
+  };
 
   # Add hardware related packages
   environment.systemPackages = with pkgs; [
@@ -149,7 +152,7 @@
     vulkan-validation-layers
     libva
     libva-utils
-    
+
     # Wayland tools
     wlr-randr
     wayland-utils
