@@ -94,8 +94,8 @@
   hardware.bluetooth.powerOnBoot = true;
 
   # NVIDIA Configuration for PS63 Modern 8RC (GTX 1050 Max-Q)
-  services.xserver.videoDrivers = [ "nvidia" ];
-
+  # Note: Removed xserver.videoDrivers for Wayland compatibility
+  
   hardware.nvidia = {
     modesetting.enable = true;
 
@@ -120,6 +120,13 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
+  # Enable Wayland support for NVIDIA
+  environment.sessionVariables = {
+    GBM_BACKEND = "nvidia-drm";
+    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    WLR_NO_HARDWARE_CURSORS = "1";
+  };
+
   # Enable virtualisation on Nvidia GPU
   hardware.nvidia-container-toolkit.enable = true;
 
@@ -142,6 +149,11 @@
     vulkan-validation-layers
     libva
     libva-utils
+    
+    # Wayland tools
+    wlr-randr
+    wayland-utils
+    egl-wayland
   ];
 
   # Power management

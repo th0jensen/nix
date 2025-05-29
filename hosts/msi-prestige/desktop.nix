@@ -1,108 +1,198 @@
 { pkgs, ... }: {
-  services.xserver = {
+  # Enable Wayland and Sway
+  programs.sway = {
     enable = true;
-    xkb.layout = "us";
-    excludePackages = [ pkgs.xterm ];
-
-    displayManager = {
-      lightdm.enable = true;
-      xserverArgs = [ "-nolisten" "tcp" ];
-    };
-
-    desktopManager = {
-      xterm.enable = false;
-      xfce = {
-        enable = true;
-        enableXfwm = true;
-      };
-    };
-  };
-
-  services.displayManager.defaultSession = "xfce";
-
-  services.libinput = {
-    enable = true;
-
-    mouse = {
-      accelProfile = "adaptive";
-      accelSpeed = "0";
-    };
-
-    touchpad = {
-      tapping = true;
-      naturalScrolling = true;
-      middleEmulation = true;
-    };
-  };
-
-  environment.sessionVariables = {
-    XCURSOR_SIZE = "24";
-  };
-
-  xdg.portal = {
-    enable = true;
-    extraPortals = with pkgs; [
+    wrapperFeatures.gtk = true;
+    extraPackages = with pkgs; [
+      # Core Sway ecosystem
+      swaylock
+      swayidle
+      waybar
+      wofi
+      mako
+      
+      # Terminal and utilities
+      foot
+      grim
+      slurp
+      wl-clipboard
+      wf-recorder
+      
+      # File manager and basic apps
+      nautilus
+      firefox
+      
+      # Appearance and themes
+      gtk3
+      gtk4
+      adwaita-icon-theme
+      gnome.gnome-themes-extra
+      
+      # System utilities
+      brightnessctl
+      pamixer
+      playerctl
+      networkmanagerapplet
+      blueman
+      
+      # Screenshot and screen sharing
+      xdg-desktop-portal-wlr
       xdg-desktop-portal-gtk
     ];
   };
 
-  nixpkgs.overlays = [
-    (self: super: {
-      chicago95-theme = super.fetchFromGitHub {
-        owner = "grassmunk";
-        repo = "Chicago95";
-        rev = "master";
-        sha256 = "sha256-poj8dHzv9zJGD7hvMzG+7kJrTB+zkw99AnqPG96vmkM=";
+  # XDG Portal configuration for Wayland
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gtk
+      xdg-desktop-portal-wlr
+    ];
+  };
+
+  # Enable display manager for Sway
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd sway";
+        user = "greeter";
       };
-    })
-  ];
+    };
+  };
 
-  system.activationScripts.installChicago95 = ''
-      mkdir -p /home/thomas/.themes
-      mkdir -p /home/thomas/.icons
-      mkdir -p /usr/share/lightdm-webkit/themes
-      mkdir -p /home/thomas/.config/gtk-3.0
+  # Audio configuration (PipeWire already enabled in main config)
+  security.rtkit.enable = true;
 
-      cp -r ${pkgs.chicago95-theme}/Theme/Chicago95 /home/thomas/.themes/
-      cp -r ${pkgs.chicago95-theme}/Theme/Chicago95 /usr/share/themes/
-      cp -r ${pkgs.chicago95-theme}/Icons/Chicago95 /home/thomas/.icons/
-      cp -r ${pkgs.chicago95-theme}/Icons/Chicago95 /usr/share/icons/
+  # Fonts
+  fonts = {
+    packages = with pkgs; [
+      noto-fonts
+      noto-fonts-cjk
+      noto-fonts-emoji
+      liberation_ttf
+      fira-code
+      fira-code-symbols
+      mplus-outline-fonts.githubRelease
+      dina-font
+      proggyfonts
+      font-awesome
+    ];
+    
+    fontconfig = {
+      enable = true;
+      defaultFonts = {
+        monospace = [ "Fira Code" "DejaVu Sans Mono" ];
+        sansSerif = [ "Noto Sans" "DejaVu Sans" ];
+        serif = [ "Noto Serif" "DejaVu Serif" ];
+        emoji = [ "Noto Color Emoji" ];
+      };
+    };
+  };
 
-      cp -r ${pkgs.chicago95-theme}/Cursors /home/thomas/.icons
-      cp ${pkgs.chicago95-theme}/Fonts/vga_font/LessPerfectDOSVGA.ttf /usr/share/fonts
-      cp ${pkgs.chicago95-theme}/Extras/override/gtk-3.24/gtk.css /home/thomas/.config/gtk-3.0/
+  # Environment variables
+  environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
+    MOZ_ENABLE_WAYLAND = "1";
+    QT_QPA_PLATFORM = "wayland";
+    GDK_BACKEND = "wayland";
+    XDG_CURRENT_DESKTOP = "sway";
+    XDG_SESSION_DESKTOP = "sway";
+    XDG_SESSION_TYPE = "wayland";
+    WLR_NO_HARDWARE_CURSORS = "1";
+  };
 
-      chown -R thomas:users /home/thomas/.themes
-      chown -R thomas:users /home/thomas/.icons
-      chown -R lightdm:lightdm /usr/share/lightdm-webkit/themes/Chicago95
-      chmod -R 755 /usr/share/lightdm-webkit/themes/Chicago95
-  '';
-
+  # Additional system packages for Sway workflow
   environment.systemPackages = with pkgs; [
-    acpi
-    blueman
-    brightnessctl
-    chicago95-theme
-    fontconfig
-    flameshot
-    gtk-engine-murrine
-    gtk3
-    gtk4
-    libreoffice
+    # System monitoring
+    htop
+    btop
+    
+    # File management
+    ranger
+    tree
+    
+    # Media
+    mpv
+    imv
+    
+    # Development
+    vscode
+    
+    # Network tools
+    curl
+    wget
+    
+    # Archive tools
+    unzip
+    zip
+    p7zip
+    
+    # System utilities
+    lshw
+    usbutils
+    pciutils
+    
+    # Clipboard and screenshot
+    wl-clipboard
+    grim
+    slurp
+    
+    # Theme tools
     lxappearance
-    pamixer
-    pulseaudio
-    sound-theme-freedesktop
-    xclip
-    xfce.thunar
-    xfce.thunar-volman
-    xfce.thunar-archive-plugin
-    xfce.xfce4-power-manager
-    xfce.xfce4-settings
-    xfce.xfce4-whiskermenu-plugin
-    xorg.xbacklight
-    xorg.xinit
-    xorg.xrandr
-    xsel
+    qt5ct
   ];
+
+  # Enable polkit for privilege escalation
+  security.polkit.enable = true;
+
+  # Enable GNOME keyring for credential storage
+  services.gnome.gnome-keyring.enable = true;
+
+  # Enable location services for automatic screen temperature adjustment
+  services.geoclue2.enable = true;
+
+  # Configure input devices
+  services.libinput = {
+    enable = true;
+    
+    mouse = {
+      accelProfile = "adaptive";
+      accelSpeed = "0";
+    };
+    
+    touchpad = {
+      tapping = true;
+      naturalScrolling = true;
+      middleEmulation = true;
+      disableWhileTyping = true;
+      clickMethod = "clickfinger";
+    };
+  };
+
+  # GTK configuration
+  programs.dconf.enable = true;
+  
+  # Qt theming
+  qt = {
+    enable = true;
+    platformTheme = "gtk2";
+    style = "gtk2";
+  };
+
+  # Enable automatic screen locking
+  programs.swaylock = {
+    package = pkgs.swaylock-effects;
+    settings = {
+      color = "000000";
+      font-size = 24;
+      indicator-idle-visible = false;
+      indicator-radius = 100;
+      line-color = "ffffff";
+      show-failed-attempts = true;
+    };
+  };
+
+
 }

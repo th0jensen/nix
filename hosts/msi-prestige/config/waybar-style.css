@@ -1,0 +1,88 @@
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "DejaVu Sans Mono", monospace;
+    font-size: 11px;
+    min-height: 0;
+}
+
+window#waybar {
+    background-color: #222222;
+    color: #ffffff;
+    transition-property: background-color;
+    transition-duration: 0.5s;
+}
+
+#workspaces {
+    background-color: transparent;
+}
+
+#workspaces button {
+    padding: 0 8px;
+    background-color: transparent;
+    color: #ffffff;
+    border: 1px solid #333333;
+    margin-right: 0;
+}
+
+#workspaces button:hover {
+    background-color: #333333;
+    box-shadow: inherit;
+    text-shadow: inherit;
+}
+
+#workspaces button.focused {
+    background-color: #4c7899;
+    color: #ffffff;
+}
+
+#workspaces button.urgent {
+    background-color: #900000;
+    color: #ffffff;
+}
+
+#mode {
+    background-color: #900000;
+    color: #ffffff;
+    padding: 0 8px;
+}
+
+#window {
+    background-color: transparent;
+    color: #ffffff;
+    padding: 0 8px;
+}
+
+#clock,
+#battery,
+#cpu,
+#memory,
+#network,
+#pulseaudio {
+    padding: 0 8px;
+    background-color: transparent;
+    color: #ffffff;
+    border-left: 1px solid #333333;
+}
+
+#battery.critical:not(.charging) {
+    background-color: #900000;
+    color: #ffffff;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes blink {
+    to {
+        background-color: #ffffff;
+        color: #000000;
+    }
+}
+
+#pulseaudio.muted {
+    background-color: #900000;
+    color: #ffffff;
+}

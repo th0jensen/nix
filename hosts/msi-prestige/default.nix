@@ -48,11 +48,7 @@
       useRoutingFeatures = "server";
     };
 
-    xrdp = {
-      enable = true;
-      defaultWindowManager = "startxfce4";
-      openFirewall = true;
-    };
+
 
     udisks2.enable = true;
     gvfs.enable = true;
@@ -81,12 +77,41 @@
     swt
     nss_latest
     ghostty
+    
+    # Wayland compatibility tools
+    xwayland
+    wlr-randr
   ];
+
+  # Deploy configuration files
+  system.activationScripts.setupSwayConfigs = ''
+    # Create user config directories
+    mkdir -p /home/thomas/.config/sway
+    mkdir -p /home/thomas/.config/waybar
+    
+    # Copy Sway config if it doesn't exist
+    if [ ! -f /home/thomas/.config/sway/config ]; then
+      cp ${./config/sway-config} /home/thomas/.config/sway/config
+    fi
+    
+    # Copy Waybar config and style if they don't exist
+    if [ ! -f /home/thomas/.config/waybar/config ]; then
+      cp ${./config/waybar-config.jsonc} /home/thomas/.config/waybar/config
+    fi
+    if [ ! -f /home/thomas/.config/waybar/style.css ]; then
+      cp ${./config/waybar-style.css} /home/thomas/.config/waybar/style.css
+    fi
+    
+    # Set proper ownership
+    chown -R thomas:users /home/thomas/.config/sway
+    chown -R thomas:users /home/thomas/.config/waybar
+    chmod -R 755 /home/thomas/.config/sway
+    chmod -R 755 /home/thomas/.config/waybar
+  '';
 
 
   services.udev.extraRules = ''
     KERNEL=="uinput", SUBSYSTEM=="misc", TAG+="uaccess", GROUP="input", MODE="0660"
-    SUBSYSTEM=="input", ACTION=="add", RUN+="${pkgs.xorg.xhost}/bin/xhost +SI:localuser:thomas"
   '';
 
   # Enable uinput
