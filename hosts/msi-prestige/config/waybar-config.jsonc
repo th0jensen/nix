@@ -1,76 +1,82 @@
 {
-    "layer": "top",
-    "position": "top",
-    "height": 22,
-    "spacing": 0,
-    
-    "modules-left": ["sway/workspaces", "sway/mode"],
-    "modules-center": ["sway/window"],
-    "modules-right": ["pulseaudio", "network", "cpu", "memory", "battery", "clock"],
+  "layer": "top",
+  "position": "bottom",
+  "height": 22,
+  "spacing": 0,
 
-    "sway/workspaces": {
-        "disable-scroll": true,
-        "all-outputs": true,
-        "format": "{name}",
-        "persistent_workspaces": {
-            "1": [],
-            "2": [],
-            "3": [],
-            "4": [],
-            "5": []
-        }
+  "modules-left": ["sway/workspaces", "sway/mode"],
+  "modules-right": [
+    "pulseaudio",
+    "network",
+    "cpu",
+    "memory",
+    "battery",
+    "clock",
+  ],
+
+  "sway/workspaces": {
+    "disable-scroll": true,
+    "all-outputs": true,
+    "format": "{name}",
+    "persistent_workspaces": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": [],
+      "5": [],
     },
-    
-    "sway/mode": {
-        "format": " {}"
+  },
+
+  "sway/mode": {
+    "format": " {}",
+  },
+
+  "sway/window": {
+    "format": "{}",
+    "max-length": 50,
+    "tooltip": false,
+  },
+
+  "clock": {
+    "format": "{:%a %Y-%m-%d %H:%M}",
+    "tooltip": false,
+  },
+
+  "cpu": {
+    "format": "CPU {usage}%",
+    "tooltip": false,
+    "interval": 2,
+  },
+
+  "memory": {
+    "format": "MEM {percentage}%",
+    "tooltip": false,
+    "interval": 2,
+  },
+
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15,
     },
-    
-    "sway/window": {
-        "format": "{}",
-        "max-length": 50,
-        "tooltip": false
-    },
-    
-    "clock": {
-        "format": "{:%a %Y-%m-%d %H:%M}",
-        "tooltip": false
-    },
-    
-    "cpu": {
-        "format": "CPU {usage}%",
-        "tooltip": false,
-        "interval": 2
-    },
-    
-    "memory": {
-        "format": "MEM {percentage}%",
-        "tooltip": false,
-        "interval": 2
-    },
-    
-    "battery": {
-        "states": {
-            "warning": 30,
-            "critical": 15
-        },
-        "format": "BAT {capacity}%",
-        "format-charging": "BAT {capacity}% CHG",
-        "format-plugged": "BAT {capacity}% AC",
-        "tooltip": false
-    },
-    
-    "network": {
-        "format-wifi": "WIFI {essid}",
-        "format-ethernet": "ETH {ipaddr}",
-        "format-linked": "ETH (No IP)",
-        "format-disconnected": "NET DISCONNECTED",
-        "tooltip": false
-    },
-    
-    "pulseaudio": {
-        "format": "VOL {volume}%",
-        "format-muted": "VOL MUTED",
-        "tooltip": false,
-        "on-click": "pamixer -t"
-    }
+    "format": "BAT {capacity}%",
+    "format-charging": "BAT {capacity}% CHG",
+    "format-plugged": "BAT {capacity}% AC",
+    "tooltip": false,
+  },
+
+  "network": {
+    "format-wifi": "WIFI {essid}",
+    "format-ethernet": "ETH {ipaddr}",
+    "format-linked": "ETH (No IP)",
+    "format-disconnected": "NET DISCONNECTED",
+    "tooltip": false,
+  },
+
+  "pulseaudio": {
+    "format": "VOL {volume}%",
+    "format-muted": "VOL MUTED",
+    "tooltip": false,
+    "on-click": "pamixer -t",
+  },
 }

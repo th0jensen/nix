@@ -88,6 +88,7 @@
     # Create user config directories
     mkdir -p /home/thomas/.config/sway
     mkdir -p /home/thomas/.config/waybar
+    mkdir -p /home/thomas/.config/wayvnc
     
     # Copy Sway config if it doesn't exist
     if [ ! -f /home/thomas/.config/sway/config ]; then
@@ -102,11 +103,18 @@
       cp ${./config/waybar-style.css} /home/thomas/.config/waybar/style.css
     fi
     
+    # Copy WayVNC config if it doesn't exist
+    if [ ! -f /home/thomas/.config/wayvnc/config ]; then
+      cp ${./config/wayvnc-config} /home/thomas/.config/wayvnc/config
+    fi
+    
     # Set proper ownership
     chown -R thomas:users /home/thomas/.config/sway
     chown -R thomas:users /home/thomas/.config/waybar
+    chown -R thomas:users /home/thomas/.config/wayvnc
     chmod -R 755 /home/thomas/.config/sway
     chmod -R 755 /home/thomas/.config/waybar
+    chmod -R 755 /home/thomas/.config/wayvnc
   '';
 
 
