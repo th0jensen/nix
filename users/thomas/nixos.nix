@@ -1,4 +1,4 @@
-{ pkgs, inputs, system, ... }: {
+{ pkgs, ... }: {
   imports = [
     ./default.nix
   ];
@@ -7,10 +7,7 @@
   home.homeDirectory = "/home/thomas";
 
   home.packages = with pkgs; [
-    freeciv
-    ioquake3
-    thunderbird-latest-unwrapped
-    inputs.zen-browser.packages."${system}".default
+    ungoogled-chromium
     zed-editor
   ];
 }

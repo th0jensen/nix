@@ -77,7 +77,7 @@
     swt
     nss_latest
     ghostty
-    
+
     # Wayland compatibility tools
     xwayland
     wlr-randr
@@ -89,25 +89,12 @@
     mkdir -p /home/thomas/.config/sway
     mkdir -p /home/thomas/.config/waybar
     mkdir -p /home/thomas/.config/wayvnc
-    
-    # Copy Sway config if it doesn't exist
-    if [ ! -f /home/thomas/.config/sway/config ]; then
-      cp ${./config/sway-config} /home/thomas/.config/sway/config
-    fi
-    
-    # Copy Waybar config and style if they don't exist
-    if [ ! -f /home/thomas/.config/waybar/config ]; then
-      cp ${./config/waybar-config.jsonc} /home/thomas/.config/waybar/config
-    fi
-    if [ ! -f /home/thomas/.config/waybar/style.css ]; then
-      cp ${./config/waybar-style.css} /home/thomas/.config/waybar/style.css
-    fi
-    
-    # Copy WayVNC config if it doesn't exist
-    if [ ! -f /home/thomas/.config/wayvnc/config ]; then
-      cp ${./config/wayvnc-config} /home/thomas/.config/wayvnc/config
-    fi
-    
+
+    # Always overwrite Sway config to ensure keyboard input is fixed
+    cp ${./config/sway-config} /home/thomas/.config/sway/config
+    cp ${./config/waybar-config.jsonc} /home/thomas/.config/waybar/config
+    cp ${./config/waybar-style.css} /home/thomas/.config/waybar/style.css
+
     # Set proper ownership
     chown -R thomas:users /home/thomas/.config/sway
     chown -R thomas:users /home/thomas/.config/waybar

@@ -14,9 +14,8 @@
     dosbox-staging
     nixd
     rustup
+    superfile
   ];
-
-  # TODO: Add Thunderbird module with configuration
 
   home.sessionVariables = {
     EDITOR = "hx";

@@ -14,14 +14,14 @@ set $down j
 set $up k
 set $right l
 # Your preferred terminal emulator
-set $term foot
+set $term ghostty
 # Your preferred application launcher
 set $menu wofi --show drun
 
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+# output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 #
 # Example configuration:
 #
@@ -61,14 +61,18 @@ input type:keyboard {
     xkb_layout us
     repeat_delay 300
     repeat_rate 50
+    xkb_options ""
 }
+
+# Make sure we're not in any input mode
+input * xkb_switch_layout 0
 
 ### Key bindings
 #
 # Basics:
 #
     # Start a terminal
-    bindsym $mod+Return exec $term
+    bindsym $mod+Shift+Return exec $term
 
     # Kill focused window
     bindsym $mod+Shift+q kill
@@ -115,6 +119,9 @@ input type:keyboard {
 #
 # Workspaces:
 #
+
+workspace_layout tabbed
+
     # Switch to workspace
     bindsym $mod+1 workspace number 1
     bindsym $mod+2 workspace number 2
@@ -226,12 +233,6 @@ bindsym $mod+r mode "resize"
     bindsym $mod+Print exec grim -g "$(slurp)" ~/Pictures/screenshot-$(date +%Y%m%d-%H%M%S).png
 
 #
-# Application shortcuts:
-#
-    bindsym $mod+shift+f exec firefox
-    bindsym $mod+shift+n exec nautilus
-
-#
 # Status Bar:
 #
 # Use waybar instead of built-in sway bar
@@ -239,6 +240,10 @@ exec waybar
 
 # NVIDIA-specific tweaks
 exec_always --no-startup-id "echo 'WLR_NO_HARDWARE_CURSORS=1' >> ~/.profile"
+
+# Reset any stuck modifiers on startup
+exec --no-startup-id "swaymsg input type:keyboard xkb_options ''"
+exec_always --no-startup-id "sleep 1 && swaymsg input * release all"
 
 # Auto-start applications
 exec mako
