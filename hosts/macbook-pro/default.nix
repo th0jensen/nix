@@ -59,7 +59,6 @@
     ];
     masApps = {
       "Amphetamine" = 937984704;
-      "Windows App" = 1295203466;
     };
   };
 }
